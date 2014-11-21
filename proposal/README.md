@@ -1,8 +1,4 @@
-# Proposal
-
-My research proposal on using Social Login for simpler WiFi authentication.
-
-## Overview
+# Overview
 
 The proposal is built using [LaTex](http://www.latex-project.org/). 
 The directory is setup so you simply need to edit the text within
@@ -13,7 +9,7 @@ make clean all
 
 The `Makefile` makes several passes because of the weird way LaTex works.
 
-### Structure
+## Structure
 
 The file structure:
 
@@ -27,7 +23,7 @@ The file structure:
     - citations.bib                       - list of citations. In ACM, click "BibTeX" then copy/paste the contents of the popup. These can be referenced by name
 ```
 
-### Building
+## Building
   1. Download LaTeX -- e.g. `apt-get install texlive`
   2. `make clean all`
   3. Manually upload the resulting `PDF` to drive or somewhere for sharing or submitting
