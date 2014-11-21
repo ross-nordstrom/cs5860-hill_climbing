@@ -27,3 +27,6 @@ The file structure:
   1. Download LaTeX -- e.g. `apt-get install texlive`
   2. `make clean all`
   3. Manually upload the resulting `PDF` to drive or somewhere for sharing or submitting
+
+## Citations
+Use an ACM citation generator such as [cite2write](http://www.qub.ac.uk/cite2write/harvard3l.html)
