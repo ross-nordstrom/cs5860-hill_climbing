@@ -23,6 +23,7 @@
                 <table ng-show="queensBoard" class="queens-container">
                     <tr ng-repeat="row in queensBoard.board" class="queens-row">
                         <td ng-repeat="cell in row" class="cell" ng-click="columnClick(queensBoard, cell.col)">
+                            {{cell.opportunity}}
                             <img style="{{cell.queen ? 'height:20px;' : ''}}" ng-show="cell.initialQueen"
                                  src="../img/queen-outline.png"/>
                             <img style="{{cell.initialQueen ? 'height:20px;' : ''}}" ng-show="cell.queen"
@@ -33,7 +34,8 @@
             </div>
             <div class="col-xs-6 col-md-4">
                 <h3>Activity Log</h3>
-                <button class="btn btn-info" ng-click="step(queensBoard)">Step board</button>
+                <button class="btn btn-info" ng-click="boardStep(queensBoard)">Step board</button>
+                <button class="btn btn-default" ng-click="boardDebug(queensBoard)">Debug board</button>
 
                 <p>{{queensBoard.queens}}</p>
             </div>
