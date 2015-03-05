@@ -7,6 +7,7 @@ angular.module('NQueensService', []).factory('Queens', [function () {
     ];
 
     function randomBoard(numQueens) {
+        var start = new Date();
         var range = _.range(numQueens);
         var queens = [];
         var board = _.chain(range)
@@ -17,13 +18,15 @@ angular.module('NQueensService', []).factory('Queens', [function () {
                         row: rowIdx,
                         col: colIdx,
                         h: null, // To be calculated later
-                        queen: false
+                        best: null,
+                        initialQueen: false,
+                        finalQueen: false
                     };
                 });
 
+                // Randomly set one of the cells to have a queen
                 var queenCol = _.sample(range, 1)[0];
-
-                row[queenCol].queen = true;
+                row[queenCol].initialQueen = true;
 
                 // Flip ahead of time since we're going to transpose later on
                 queens.push({row: queenCol, col: rowIdx});
@@ -32,11 +35,16 @@ angular.module('NQueensService', []).factory('Queens', [function () {
             .value();
 
         // Transpose so we have 1 queen per column
+        var h = numAttackingQueens(queens);
         return {
             board: transpose(board),
             queens: queens,
-            initialH: numAttackingQueens(queens),
-            finalH: null
+            initialH: h,
+            best: h,
+            finalH: null,
+            iterations: 1,
+            created: start,
+            updated: new Date()
         };
     }
 

@@ -7,6 +7,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controller: 'BasicController'
         })
 
+        .when('/brute', {
+            templateUrl: 'views/brute.html',
+            controller: 'BruteController'
+        })
+
         .when('/advanced', {
             templateUrl: 'views/advanced.html',
             controller: 'AdvancedController'
