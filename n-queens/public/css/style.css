@@ -20,15 +20,20 @@
 
 }
 
-.queens-container .queens-row .cell {
+.cell {
     border: 1px solid grey;
     background-color: #f5f5f5;
+    display: inline-block;
     height: 60px;
     width: 60px;
     padding: 10px;
 }
 
-.queens-container .queens-row .cell img {
+.cell img {
     display: inline-block;
     height: 100%;
+}
+
+.legend-item {
+    display: inline-block;
 }

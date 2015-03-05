@@ -16,6 +16,7 @@
                 <button type="button" ng-click="regenerate(numQueens)" class="btn btn-success">Regenerate</button>
             </div>
         </div>
+
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 col-md-8">
@@ -23,7 +24,7 @@
                         No board yet... Generate above
                     </p>
                     <table ng-show="queensBoard" class="queens-container">
-                        <tr ng-repeat="row in queensBoard" class="queens-row">
+                        <tr ng-repeat="row in queensBoard.board" class="queens-row">
                             <td ng-repeat="cell in row" class="cell">
                                 <img ng-if="cell.queen" src="../img/queen-outline.png"/>
                             </td>
@@ -35,6 +36,21 @@
 
                     <p>...</p>
                 </div>
+            </div>
+        </div>
+
+        <div class="panel-footer">
+            <div class="legend-item">
+                <div class="cell">
+                    <img src="../img/queen-outline.png"/>
+                </div>
+                <span>Initial queen positions ({{queensBoard.initialH}} attacking pairs)</span>
+            </div>
+            <div class="legend-item">
+                <div class="cell">
+                    <img src="../img/queen-full.png"/>
+                </div>
+                <span>Final queen positions ({{queensBoard.finalH || 'N/A'}} attacking pairs)</span>
             </div>
         </div>
     </div>

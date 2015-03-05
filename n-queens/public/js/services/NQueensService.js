@@ -18,7 +18,12 @@ angular.module('NQueensService', []).factory('Queens', [function () {
             .value();
 
         // Transpose so we have 1 queen per column
-        return transpose(board);
+        var b = transpose(board);
+        return {
+            board: b,
+            initialH: numAttackingQueens(b),
+            finalH: null
+        };
     }
 
     function transpose(a) {
@@ -27,6 +32,10 @@ angular.module('NQueensService', []).factory('Queens', [function () {
                 return r[c];
             });
         });
+    }
+
+    function numAttackingQueens(board) {
+        return 33;
     }
 
     return {
