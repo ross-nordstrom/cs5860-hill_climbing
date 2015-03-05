@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "author": "Ross Nordstrom <ross.nordstrom@flukenetworks.com> (http://github.com/ross-nordstrom)",
   "contributors": [],
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/ross-nordstrom/cs5860-hill_climbing"
