@@ -1,5 +1,6 @@
 
 all:
+	mkdir -p build
 	pdflatex proposal.tex
 	bibtex proposal.aux
 	pdflatex proposal.tex
@@ -10,7 +11,7 @@ all:
 	mv *.bbl build/.
 	mv *.blg build/.
 	mv *.out build/.
-	mv proposal.pdf Nordstrom_SocialWiFi.pdf
+	mv proposal.pdf My_Project.pdf
 
 clean:
 	rm -fv *.aux *.pdf *.log *.bbl *.blg *.out
