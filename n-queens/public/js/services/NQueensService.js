@@ -71,6 +71,20 @@ angular.module('NQueensService', []).factory('Queens', [function () {
         return boardObj;
     }
 
+    function mergeBoards(firstBoard, secondBoard) {
+        var boardObj = JSON.parse(JSON.stringify(firstBoard));
+
+        _.each(boardObj.board, function (col, colIdx) {
+            _.each(col, function (row, rowIdx) {
+                row.initialQueen = row.queen;
+                row.queen = secondBoard.board[colIdx][rowIdx].queen;
+            })
+        });
+        boardObj.initialH = boardObj.h;
+
+        return boardObj;
+    }
+
     function transpose(a) {
         return a[0].map(function (_, c) {
             return a.map(function (r) {
@@ -119,6 +133,7 @@ angular.module('NQueensService', []).factory('Queens', [function () {
         randomBoard: randomBoard,
         updateBoard: updateBoard,
         storeBoard: storeBoard,
+        mergeBoards: mergeBoards,
         transpose: transpose
     };
 

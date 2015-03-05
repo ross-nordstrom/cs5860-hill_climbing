@@ -23,8 +23,10 @@
                 <table ng-show="queensBoard" class="queens-container">
                     <tr ng-repeat="row in queensBoard.board" class="queens-row">
                         <td ng-repeat="cell in row" class="cell" ng-click="columnClick(queensBoard, cell.col)">
-                            <img ng-show="!cell.queen && cell.initialQueen" src="../img/queen-outline.png"/>
-                            <img ng-show="cell.queen" src="../img/queen-full.png"/>
+                            <img style="{{cell.queen ? 'height:20px;' : ''}}" ng-show="cell.initialQueen"
+                                 src="../img/queen-outline.png"/>
+                            <img style="{{cell.initialQueen ? 'height:20px;' : ''}}" ng-show="cell.queen"
+                                 src="../img/queen-full.png"/>
                         </td>
                     </tr>
                 </table>

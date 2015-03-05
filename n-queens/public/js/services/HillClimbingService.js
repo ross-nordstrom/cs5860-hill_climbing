@@ -2,7 +2,7 @@ angular.module('HillClimbingService', []).factory('HillClimb', ['Queens', functi
 
     function basicHillClimbStep(boardObj, col) {
         var range = _.range(boardObj.queens.length);
-        var currentQueenRowIdx = _.find(boardObj.board[col], {initialQueen: true}).row;
+        var currentQueenRowIdx = _.find(boardObj.board[col], {queen: true}).row;
         var neighborBoards = _.chain(range)
             .map(function (neighborIdx) {
                 var neighborBoard = JSON.parse(JSON.stringify(boardObj));

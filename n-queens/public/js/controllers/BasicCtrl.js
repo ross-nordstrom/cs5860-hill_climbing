@@ -11,7 +11,10 @@ angular.module('BasicCtrl', [])
             var boardObj = Queens.randomBoard(num);
             boardObj.board = Queens.transpose(boardObj.board);
             $scope.queensBoard = boardObj;
+
+            $scope.iteration($scope.queensBoard);
         };
+
         $scope.iteration = function (boardObj) {
             boardObj.board = Queens.transpose(boardObj.board);
 
@@ -19,23 +22,22 @@ angular.module('BasicCtrl', [])
                 return HillClimb.basicHillClimbStep(workingBoardObj, colIdx);
             }, boardObj);
 
-            nextBoardObj.board = Queens.transpose(nextBoardObj.board);
-            $scope.queensBoard = nextBoardObj;
+            $scope.queensBoard = Queens.mergeBoards($scope.queensBoard, nextBoardObj);
+            $scope.queensBoard.board = Queens.transpose($scope.queensBoard.board);
         };
 
         $scope.step = function (boardObj, colIdx) {
             boardObj.board = Queens.transpose(boardObj.board);
 
-            boardObj = Queens.incrementBoard(boardObj);
+            boardObj = Queens.storeBoard(boardObj);
             var nextBoardObj = HillClimb.basicHillClimbStep(boardObj, colIdx);
 
-            nextBoardObj.board = Queens.transpose(nextBoardObj.board);
-            $scope.queensBoard = nextBoardObj;
+            $scope.queensBoard = Queens.mergeBoards($scope.queensBoard, nextBoardObj);
+            $scope.queensBoard.board = Queens.transpose($scope.queensBoard.board);
         };
         $scope.columnClick = $scope.step;
         $scope.boardStep = $scope.iteration;
 
         // Initialize
         $scope.regenerate($scope.maxAttempts, $scope.numQueens);
-        $scope.iteration($scope.queensBoard);
     }]);
