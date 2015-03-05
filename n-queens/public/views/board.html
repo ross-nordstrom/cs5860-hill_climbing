@@ -5,9 +5,11 @@
         </h2>
 
         <form class="panel-actions" ng-submit="regenerate(maxAttempts, numQueens)">
-            <input type="number" ng-model="maxAttempts" placeholder="Max attempts" min="1"
+            <input ng-disabled="attemptsDisabled" type="number" ng-model="maxAttempts" placeholder="Max attempts"
+                   min="0"
                    max="{{attemptsLimit}}"/>
-            <input type="number" ng-model="numQueens" placeholder="Num queens" disabled="disabled" min="8" max="8"/>
+            <input type="number" ng-model="numQueens" placeholder="Num queens"
+                   disabled="disabled" min="8" max="8"/>
             <input type="submit" class="btn btn-success" value="Regenerate"/>
         </form>
     </div>
