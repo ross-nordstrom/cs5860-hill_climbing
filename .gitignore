@@ -107,3 +107,12 @@ sympy-plots-for-*.tex/
 
 # xindy
 *.xdy
+
+# intellij
+.idea/
+
+# node.js
+node_modules/
+
+# bower components
+n-queens/public/libs

@@ -1,0 +1,9 @@
+{
+   "name": "cs5860-hw1",
+   "version": "0.0.0",
+   "dependencies": {
+      "bootstrap": "latest",
+      "angular": "latest",
+      "angular-route": "latest"
+   }
+}

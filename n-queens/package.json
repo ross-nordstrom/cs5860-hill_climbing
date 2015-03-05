@@ -1,0 +1,29 @@
+{
+  "name": "cs5860-hw1",
+  "description": "Hill climbing applied to the n-queens problem",
+  "version": "0.0.0",
+  "author": "Ross Nordstrom <ross.nordstrom@flukenetworks.com> (http://github.com/ross-nordstrom)",
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ross-nordstrom/cs5860-hill_climbing"
+  },
+  "main": "server.js",
+  "scripts": {
+    "autorun": "nodemon server.js",
+    "basictest": "./node_modules/.bin/mocha -R spec -t 60s -s 1s --recursive",
+    "autotest": "./node_modules/.bin/mocha --watch -R spec -t 60s -s 1s --recursive",
+    "pretest": "node_modules/.bin/jshint lib/",
+    "test": "./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha -- -R spec -t 60s -s 1s --recursive",
+    "release": "./node_modules/.bin/npm-release"
+  },
+  "dependencies": {
+    "express": "~4.5.1",
+    "body-parser": "~1.4.2",
+    "method-override": "~2.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "*",
+    "npm-release": "*"
+  }
+}
