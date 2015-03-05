@@ -1,1 +1,1 @@
-angular.module('hw1App', ['ngRoute', 'appRoutes', 'MainCtrl', 'BasicCtrl', 'HillClimbingService']);
+angular.module('hw1App', ['ngRoute', 'appRoutes', 'MainCtrl', 'BasicCtrl', 'HillClimbingService', 'NQueensService']);

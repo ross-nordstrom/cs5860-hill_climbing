@@ -1,5 +1,13 @@
-angular.module('BasicCtrl', []).controller('BasicController', function ($scope) {
+angular.module('BasicCtrl', [])
+    .controller('BasicController', ['$scope', 'Queens', function ($scope, Queens) {
 
-    $scope.tagline = 'The square root of life is pi!';
+        $scope.numQueens = 8;
+        $scope.queensBoard = null; //Queens.randomBoard($scope.numQueens);
 
-});
+        $scope.regenerate = function (num) {
+            $scope.queensBoard = Queens.randomBoard(num);
+        };
+
+        // Initialize
+        $scope.regenerate($scope.numQueens);
+    }]);

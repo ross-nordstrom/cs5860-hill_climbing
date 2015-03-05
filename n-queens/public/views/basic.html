@@ -1,5 +1,43 @@
 <div class="page-header text-center">
     <h1>Basic Hill Climbing Demo</h1>
+</div>
 
-    <p>{{ tagline }}</p>
+<div class="container">
+    <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2>
+                Initial Board
+            </h2>
+
+            <div class="panel-actions">
+                <input type="number" ng-model="numQueens" placeholder="Num queens" disabled="disabled" min="8" max="8"/>
+                <button type="button" ng-click="regenerate(numQueens)" class="btn btn-success">Regenerate</button>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12 col-md-8">
+                    <div>
+                    </div>
+                    <table class="queens-container">
+                        <tr ng-if="!queensBoard">
+                            No board yet... Generate above
+                        </tr>
+                        <tr ng-repeat="row in queensBoard" ng-if="queensBoard" class="queens-row">
+                            <td ng-repeat="cell in row" class="cell">
+                                <img ng-if="cell.queen" src="../img/queen.png"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                    <h3>Activity Log</h3>
+
+                    <p>...</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
