@@ -8,6 +8,7 @@ angular.module('NQueensService', []).factory('Queens', [function () {
                         id: [rowIdx, colIdx].join('-'),
                         row: rowIdx,
                         col: colIdx,
+                        h: null, // To be calculated later
                         queen: false
                     };
                 });
