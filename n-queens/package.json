@@ -1,7 +1,7 @@
 {
   "name": "cs5860-hw1",
   "description": "Hill climbing applied to the n-queens problem",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "Ross Nordstrom <ross.nordstrom@flukenetworks.com> (http://github.com/ross-nordstrom)",
   "contributors": [],
   "private": true,
