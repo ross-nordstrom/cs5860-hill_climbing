@@ -9,17 +9,22 @@ angular.module('BruteCtrl', [])
         $scope.regenerate = function (maxAttempts, num) {
             var i;
             var curBoard = $scope.queensBoard = Queens.randomBoard(num);
+            var bestBoard = curBoard;
             var best = curBoard.best;
-            for (i = 1; i < maxAttempts && curBoard.initialH !== 0; i++) {
+            for (i = 1; i < maxAttempts && curBoard.h !== 0; i++) {
                 curBoard = Queens.randomBoard(num);
                 best = Math.min(best, curBoard.best);
+                if (best === curBoard.best) {
+                    bestBoard = curBoard;
+                }
             }
 
-            _.each(curBoard.queens, function (queen) {
-                $scope.queensBoard.board[queen.col][queen.row].finalQueen = true;
+            $scope.queensBoard = Queens.storeBoard($scope.queensBoard);
+            _.each(bestBoard.queens, function (queen) {
+                $scope.queensBoard.board[queen.row][queen.col].queen = true;
             });
 
-            $scope.queensBoard.finalH = curBoard.initialH;
+            $scope.queensBoard.h = bestBoard.h;
             $scope.queensBoard.best = best;
             $scope.queensBoard.iterations = i;
             $scope.queensBoard.end = new Date();

@@ -10,43 +10,65 @@ angular.module('NQueensService', []).factory('Queens', [function () {
         var start = new Date();
         var range = _.range(numQueens);
         var queens = [];
-        var board = _.chain(range)
-            .map(function (rowIdx) {
-                var row = _.map(range, function (colIdx) {
-                    return {
-                        id: [rowIdx, colIdx].join('-'),
-                        row: rowIdx,
-                        col: colIdx,
-                        h: null, // To be calculated later
-                        best: null,
-                        initialQueen: false,
-                        finalQueen: false
-                    };
-                });
+        var board = _.map(range, function (colIdx) {
+            var col = _.map(range, function (rowIdx) {
+                return {
+                    id: [rowIdx, colIdx].join('-'),
+                    row: rowIdx,
+                    col: colIdx,
+                    queen: false
+                };
+            });
 
-                // Randomly set one of the cells to have a queen
-                var queenCol = _.sample(range, 1)[0];
-                row[queenCol].initialQueen = true;
+            // Randomly set one of the cells to have a queen
+            var queenRow = _.sample(range, 1)[0];
+            col[queenRow].queen = true;
 
-                // Flip ahead of time since we're going to transpose later on
-                queens.push({row: queenCol, col: rowIdx});
-                return row;
-            })
-            .value();
+            // Flip ahead of time since we're going to transpose later on
+            queens.push({row: queenRow, col: colIdx});
+            return col;
+        });
 
         // Transpose so we have 1 queen per column
         var h = numAttackingQueens(queens);
         var now = new Date();
         return {
-            board: transpose(board),
+            board: board,
             queens: queens,
-            initialH: h,
             best: h,
-            finalH: null,
+            h: h,
             iterations: 1,
             start: start,
             end: now
         };
+    }
+
+    function updateBoard(boardObj) {
+        var queens = _.map(boardObj.board, function (col) {
+            var rowWithQueen = _.find(col, {queen: true});
+            return {row: rowWithQueen.row, col: rowWithQueen.col};
+        });
+
+        var h = numAttackingQueens(queens);
+        var now = new Date();
+
+        return _.extend({}, boardObj, {
+            queens: queens,
+            h: h,
+            end: now
+        });
+    }
+
+    function storeBoard(boardObj) {
+        _.each(boardObj.board, function (col) {
+            _.each(col, function (row) {
+                row.initialQueen = row.queen;
+                row.queen = false;
+            })
+        });
+        boardObj.initialH = boardObj.h;
+
+        return boardObj;
     }
 
     function transpose(a) {
@@ -94,7 +116,10 @@ angular.module('NQueensService', []).factory('Queens', [function () {
 
     // Service object - public interface
     return {
-        randomBoard: randomBoard
+        randomBoard: randomBoard,
+        updateBoard: updateBoard,
+        storeBoard: storeBoard,
+        transpose: transpose
     };
 
 }]);
