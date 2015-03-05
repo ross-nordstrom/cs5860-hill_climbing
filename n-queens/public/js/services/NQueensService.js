@@ -1,6 +1,14 @@
 angular.module('NQueensService', []).factory('Queens', [function () {
+    // Store Combination results at LUT for better performance
+    // TODO: Generate this dynamically when the board is generated so we support N arbitrary queens
+    var COMB_2 = [
+        0, 0, 1, 3, /*4:*/ 6, 10, 15, 21, /*8:*/ 28,
+        36, 45, 55, /*12:*/ 66, 78, 91, 105, /*16:*/ 120
+    ];
+
     function randomBoard(numQueens) {
         var range = _.range(numQueens);
+        var queens = [];
         var board = _.chain(range)
             .map(function (rowIdx) {
                 var row = _.map(range, function (colIdx) {
@@ -12,16 +20,22 @@ angular.module('NQueensService', []).factory('Queens', [function () {
                         queen: false
                     };
                 });
-                row[_.sample(range, 1)].queen = true;
+
+                var queenCol = _.sample(range, 1)[0];
+
+                row[queenCol].queen = true;
+
+                // Flip ahead of time since we're going to transpose later on
+                queens.push({row: queenCol, col: rowIdx});
                 return row;
             })
             .value();
 
         // Transpose so we have 1 queen per column
-        var b = transpose(board);
         return {
-            board: b,
-            initialH: numAttackingQueens(b),
+            board: transpose(board),
+            queens: queens,
+            initialH: numAttackingQueens(queens),
             finalH: null
         };
     }
@@ -34,11 +48,44 @@ angular.module('NQueensService', []).factory('Queens', [function () {
         });
     }
 
-    function numAttackingQueens(board) {
-        return 33;
+    function numAttackingQueens(queens) {
+        return numHorizontalAttackingQueens(queens)
+            + numVerticalAttackingQueens(queens)
+            + numDiagonalAttackingQueens(queens);
     }
 
+    function numHorizontalAttackingQueens(queens) {
+        var sameRows = _.countBy(queens, 'row');
+        return _.reduce(sameRows, function (count, rowCnt, rowIdx) {
+            return count + COMB_2[rowCnt];
+        }, 0);
+    }
+
+    function numVerticalAttackingQueens(queens) {
+        var sameRows = _.countBy(queens, 'col');
+        return _.reduce(sameRows, function (count, rowCnt, rowIdx) {
+            return count + COMB_2[rowCnt];
+        }, 0);
+    }
+
+    function numDiagonalAttackingQueens(queens) {
+        return _.reduce(queens, function (allSum, pinnedQueen) {
+            return allSum + _.reduce(queens, function (rowSum, compareQueen) {
+                    if (compareQueen.col === pinnedQueen.col) {
+                        return rowSum;
+                    }
+
+                    // If the slope between the 2 queens is 1 or -1, they share a diagonal
+                    var slope = (compareQueen.row - pinnedQueen.row) / (compareQueen.col - pinnedQueen.col);
+                    return rowSum + (Math.abs(slope) === 1) ? 1 : 0;
+                }, 0);
+        }, 0);
+    }
+
+
+    // Service object - public interface
     return {
         randomBoard: randomBoard
     };
+
 }]);
