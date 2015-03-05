@@ -1,6 +1,7 @@
 angular.module('BasicCtrl', [])
     .controller('BasicController', ['$scope', 'Queens', function ($scope, Queens) {
 
+        $scope.attemptsLimit = 100;
         $scope.numQueens = 8;
         $scope.queensBoard = null; //Queens.randomBoard($scope.numQueens);
 

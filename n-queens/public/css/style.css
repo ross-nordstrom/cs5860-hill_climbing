@@ -37,3 +37,19 @@
 .legend-item {
     display: inline-block;
 }
+
+.queen-success {
+    border: 8px solid green;
+}
+
+.queen-excellent {
+    border: 8px solid gold;
+}
+
+.queen-good {
+    border: 8px solid darkorange;
+}
+
+.queen-fail {
+    border: 8px solid darkred;
+}

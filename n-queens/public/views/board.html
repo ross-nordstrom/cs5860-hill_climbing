@@ -5,7 +5,8 @@
         </h2>
 
         <form class="panel-actions" ng-submit="regenerate(maxAttempts, numQueens)">
-            <input type="number" ng-model="maxAttempts" placeholder="Max attempts" min="1" max="1000"/>
+            <input type="number" ng-model="maxAttempts" placeholder="Max attempts" min="1"
+                   max="{{attemptsLimit}}"/>
             <input type="number" ng-model="numQueens" placeholder="Num queens" disabled="disabled" min="8" max="8"/>
             <input type="submit" class="btn btn-success" value="Regenerate"/>
         </form>
@@ -41,11 +42,21 @@
             </div>
             <span>Initial queen positions ({{queensBoard.initialH}} attacking pairs)</span>
         </div>
-        <div class="legend-item">
+        <div class="legend-item" ng-class="{
+             'queen-success': queensBoard.best === 0,
+             'queen-excellent': queensBoard.best === 1,
+             'queen-good': (queensBoard.best > 1 && queensBoard.best <= 3),
+             'queen-fail': (queensBoard.best > 3)
+         }">
             <div class="cell">
                 <img src="../img/queen-full.png"/>
             </div>
-            <span>Final ({{queensBoard.iterations}} tries, {{queensBoard.finalH || 'N/A'}} attacking pairs, {{queensBoard.best}} best) - Took {{queensBoard.start}}</span>
+            <span>
+                Final ({{queensBoard.iterations}} tries,
+                {{queensBoard.finalH || 'N/A'}} attacking pairs,
+                {{queensBoard.best}} best) -
+                Took {{queensBoard | timespan:false}} ms
+            </span>
         </div>
     </div>
 </div>

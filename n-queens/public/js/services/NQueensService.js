@@ -36,6 +36,7 @@ angular.module('NQueensService', []).factory('Queens', [function () {
 
         // Transpose so we have 1 queen per column
         var h = numAttackingQueens(queens);
+        var now = new Date();
         return {
             board: transpose(board),
             queens: queens,
@@ -43,8 +44,8 @@ angular.module('NQueensService', []).factory('Queens', [function () {
             best: h,
             finalH: null,
             iterations: 1,
-            created: start,
-            updated: new Date()
+            start: start,
+            end: now
         };
     }
 
