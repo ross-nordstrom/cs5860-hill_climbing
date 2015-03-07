@@ -6,6 +6,22 @@ angular.module('NQueensService', []).factory('Queens', [function () {
         36, 45, 55, /*12:*/ 66, 78, 91, 105, /*16:*/ 120
     ];
 
+    // TODO: A major improvement would come from simply using the `queens` array as
+    //          the entire representation of the board. This would save a lot of space.
+    //          I would need to duplicate (denormalize) the queens to be also stored in
+    //          a LUT object for the UI to easily see where the queens live. LUT structure:
+    //              {
+    //                  "<col_queen1>": {
+    //                      "<row_queen1>": true
+    //                  },
+    //                  "<col_queen2>": {
+    //                      "<row_queen2>": true
+    //                  },
+    //                  ...
+    //                  "<col_queenN>": {
+    //                      "<row_queen\N>": true
+    //                  }
+    //              }
     function randomBoard(numQueens) {
         var start = new Date();
         var range = _.range(numQueens);

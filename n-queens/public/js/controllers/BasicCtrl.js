@@ -63,7 +63,7 @@ angular.module('BasicCtrl', [])
                                             curBoard.h, 'attacking pairs.', 'Restart to avoid total failure.',
                                             --restartsRemaining, 'remaining.'].join(' ')
                                     );
-                                    restartsRemaining--;
+                                    sideMovesRemaining = sideMovesAllowed;
                                 } else {
                                     activityLog.push(
                                         [moment().format('HH:mm:ss.SSS'), '-', i, 'tries,',
@@ -93,7 +93,7 @@ angular.module('BasicCtrl', [])
                                                 curBoard.h, 'attacking pairs.',
                                                 'Restart to avoid failure.', --restartsRemaining, 'remaining.'].join(' ')
                                         );
-                                        restartsRemaining--;
+                                        sideMovesRemaining = sideMovesAllowed;
                                     } else {
                                         activityLog.push(
                                             [moment().format('HH:mm:ss.SSS'), '-', i, 'tries,',
@@ -143,7 +143,8 @@ angular.module('BasicCtrl', [])
                 $scope.activityLog = [];
 
                 $scope.queensBoard.iterations = 0;
-                $scope.iteration($scope.queensBoard);
+                // Transpose for viewing
+                $scope.queensBoard.board = Queens.transpose($scope.queensBoard.board);
             };
 
             $scope.iteration = function (boardObj) {
