@@ -80,7 +80,9 @@ angular.module('NQueensService', []).factory('Queens', [function () {
                 row.queen = secondBoard.board[colIdx][rowIdx].queen;
             })
         });
-        boardObj.initialH = secondBoard.h;
+        boardObj.initialH = boardObj.h;
+        boardObj.h = secondBoard.h;
+        boardObj.best = Math.min(boardObj.best, secondBoard.h);
         boardObj.queens = JSON.parse(JSON.stringify(secondBoard.queens));
 
         return boardObj;

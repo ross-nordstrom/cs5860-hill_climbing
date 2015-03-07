@@ -14,10 +14,11 @@ angular.module('HillClimbingService', []).factory('HillClimb', ['Queens', functi
             })
             .compact()
             .value();
-        var bestNeighborBoard = _.min(neighborBoards, function (nbrBoardObj) {
+
+        // Best neighbor board
+        return _.min(neighborBoards, function (nbrBoardObj) {
             return nbrBoardObj.h;
         });
-        return bestNeighborBoard;
     }
 
     function analyzeColumn(boardObj, col) {
