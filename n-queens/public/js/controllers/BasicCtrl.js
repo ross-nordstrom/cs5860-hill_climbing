@@ -24,7 +24,7 @@ angular.module('BasicCtrl', [])
                 return HillClimb.basicHillClimbStep(workingBoardObj, colIdx);
             }, boardObj);
 
-            $scope.queensBoard = Queens.mergeBoards($scope.queensBoard, nextBoardObj);
+            $scope.queensBoard = Queens.mergeBoards(Queens.storeBoard($scope.queensBoard), nextBoardObj);
             // Transpose for viewing
             $scope.queensBoard.board = Queens.transpose($scope.queensBoard.board);
             $scope.queensBoard.iterations++;
@@ -46,10 +46,10 @@ angular.module('BasicCtrl', [])
         $scope.step = function (boardObj, colIdx) {
             boardObj.board = Queens.transpose(boardObj.board);
 
-            boardObj = Queens.storeBoard(boardObj);
+            //boardObj = Queens.storeBoard(boardObj);
             var nextBoardObj = HillClimb.basicHillClimbStep(boardObj, colIdx);
 
-            $scope.queensBoard = Queens.mergeBoards($scope.queensBoard, nextBoardObj);
+            $scope.queensBoard = Queens.mergeBoards(Queens.storeBoard($scope.queensBoard), nextBoardObj);
             $scope.queensBoard.board = Queens.transpose($scope.queensBoard.board);
         };
 

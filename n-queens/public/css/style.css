@@ -27,6 +27,7 @@
     height: 60px;
     width: 60px;
     padding: 10px;
+    position: relative;
 }
 
 .cell img {
@@ -52,4 +53,10 @@
 
 .queen-fail {
     border: 8px solid darkred;
+}
+
+.float-text {
+    position: absolute;
+    top: 2px;
+    left: 6px;
 }

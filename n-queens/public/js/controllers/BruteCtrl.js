@@ -1,5 +1,5 @@
 angular.module('BruteCtrl', [])
-    .controller('BruteController', ['$scope', 'Queens', function ($scope, Queens) {
+    .controller('BruteController', ['$scope', '$timeout', 'Queens', function ($scope, $timeout, Queens) {
 
         $scope.attemptsLimit = 100000;
         $scope.maxAttempts = 100;
@@ -11,23 +11,29 @@ angular.module('BruteCtrl', [])
             var curBoard = $scope.queensBoard = Queens.randomBoard(num);
             var bestBoard = curBoard;
             var best = curBoard.best;
-            for (i = 1; i < maxAttempts && curBoard.h !== 0; i++) {
-                curBoard = Queens.randomBoard(num);
-                best = Math.min(best, curBoard.best);
-                if (best === curBoard.best) {
-                    bestBoard = curBoard;
+
+            $scope.loading = true;
+
+            $timeout(function () {
+
+                for (i = 1; i < maxAttempts && curBoard.h !== 0; i++) {
+                    curBoard = Queens.randomBoard(num);
+                    best = Math.min(best, curBoard.best);
+                    if (best === curBoard.best) {
+                        bestBoard = curBoard;
+                    }
                 }
-            }
 
-            $scope.queensBoard = Queens.storeBoard($scope.queensBoard);
-            _.each(bestBoard.queens, function (queen) {
-                $scope.queensBoard.board[queen.row][queen.col].queen = true;
+                $scope.queensBoard = Queens.mergeBoards(Queens.storeBoard($scope.queensBoard), bestBoard);
+                $scope.queensBoard.board = Queens.transpose($scope.queensBoard.board);
+
+                $scope.queensBoard.h = bestBoard.h;
+                $scope.queensBoard.best = best;
+                $scope.queensBoard.iterations = i;
+                $scope.queensBoard.end = new Date();
+
+                $scope.loading = false;
             });
-
-            $scope.queensBoard.h = bestBoard.h;
-            $scope.queensBoard.best = best;
-            $scope.queensBoard.iterations = i;
-            $scope.queensBoard.end = new Date();
         };
 
         // Initialize

@@ -37,7 +37,7 @@ angular.module('HillClimbingService', []).factory('HillClimb', ['Queens', functi
 
         // Insert the opportunity at each spot
         _.each(neighborBoards, function (neighborBoard, neighborIdx) {
-            boardObj.board[col][neighborIdx].opportunity = boardObj.h - neighborBoard.h; // Show slope of hill
+            boardObj.board[col][neighborIdx].opportunity = neighborBoard.h; // Show slope of hill
         });
 
         return boardObj;

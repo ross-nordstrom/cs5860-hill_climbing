@@ -64,6 +64,7 @@ angular.module('NQueensService', []).factory('Queens', [function () {
             _.each(col, function (row) {
                 row.initialQueen = row.queen;
                 row.queen = false;
+                row.opportunity = null;
             })
         });
         boardObj.initialH = boardObj.h;
@@ -76,11 +77,11 @@ angular.module('NQueensService', []).factory('Queens', [function () {
 
         _.each(boardObj.board, function (col, colIdx) {
             _.each(col, function (row, rowIdx) {
-                row.initialQueen = row.queen;
                 row.queen = secondBoard.board[colIdx][rowIdx].queen;
             })
         });
-        boardObj.initialH = boardObj.h;
+        boardObj.initialH = secondBoard.h;
+        boardObj.queens = JSON.parse(JSON.stringify(secondBoard.queens));
 
         return boardObj;
     }
