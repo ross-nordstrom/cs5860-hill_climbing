@@ -1,0 +1,71 @@
+.panel-heading {
+    position: relative;
+}
+
+.panel-actions {
+    position: absolute;
+    top: 26px;
+    right: 20px;
+}
+
+.panel-actions input {
+    color: black;
+}
+
+.queens-container {
+
+}
+
+.queens-container .queens-row {
+
+}
+
+.cell {
+    border: 1px solid grey;
+    background-color: #f5f5f5;
+    display: inline-block;
+    height: 60px;
+    width: 60px;
+    padding: 10px;
+    position: relative;
+}
+
+.cell img {
+    display: inline-block;
+    height: 100%;
+}
+
+.legend-item {
+    display: inline-block;
+}
+
+.queen-success {
+    border: 8px solid green;
+}
+
+.queen-excellent {
+    border: 8px solid gold;
+}
+
+.queen-good {
+    border: 8px solid darkorange;
+}
+
+.queen-fail {
+    border: 8px solid darkred;
+}
+
+.float-text {
+    position: absolute;
+    top: 2px;
+    left: 6px;
+}
+
+.activity-log-container {
+    overflow-y: scroll;
+}
+
+.board-container {
+    float: left;
+    padding-right: 40px;
+}

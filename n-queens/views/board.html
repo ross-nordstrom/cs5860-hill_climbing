@@ -1,0 +1,101 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>
+            {{title}}
+        </h2>
+
+        <form class="panel-actions" ng-submit="!loading && regenerate(maxAttempts, numQueens)">
+            <input ng-hide="attemptsDisabled" type="number" ng-model="maxAttempts" title="Max attempts"
+                   min="0"
+                   max="{{attemptsLimit}}"/>
+            <input type="number" ng-model="numQueens" title="Num queens" min="1" max="16"/>
+            <input ng-hide="loading || evaluating" type="submit" class="btn btn-success" value="Generate"/>
+            <input ng-show="loading" type="submit" class="btn btn-link" value="Generating..." disabled="disabled"/>
+        </form>
+    </div>
+
+    <div class="panel-body">
+        <p>{{description}}</p>
+
+        <div>
+            <div class="board-container">
+                <p ng-hide="queensBoard">
+                    No board yet... Generate above
+                </p>
+                <table ng-show="queensBoard" class="queens-container"
+                       style="min-width:{{queensBoard.queens.length*60}}px;">
+                    <tr ng-repeat="row in queensBoard.board" class="queens-row">
+                        <td ng-repeat="cell in row" class="cell" ng-click="columnClick(queensBoard, cell.col)">
+                            <span ng-hide="cell.queen" class="float-text">{{cell.opportunity}}</span>
+                            <img style="{{cell.queen ? 'height:20px;' : ''}}" ng-show="cell.initialQueen"
+                                 src="../img/queen-outline.png"/>
+                            <img style="{{cell.initialQueen ? 'height:20px;' : ''}}" ng-show="cell.queen"
+                                 src="../img/queen-full.png"/>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+
+                <div ng-show="queensBoard">
+                    <button class="btn btn-default" ng-show="boardStep" ng-click="boardStep(queensBoard)">Step</button>
+                    <button class="btn btn-link" ng-show="boardDebug" ng-click="boardDebug(queensBoard)">Debug board
+                    </button>
+                </div>
+            </div>
+            <div class="info-container">
+                <h3>
+                    Activity Log
+                </h3>
+
+                <form ng-submit="!evaluating && evaluate(queensBoard, sideMovesAllowed, restartsAllowed)">
+                    <input type="number" ng-model="sideMovesAllowed" title="Side moves allowed EACH restart" min="0"
+                           max="99"/>
+                    <input type="number" ng-model="restartsAllowed" title="Restarts allowed" min="0" max="999"/>
+                    <input type="submit" ng-hide="evaluating || loading" class="btn btn-success" ng-show="evaluate"
+                           value="Evaluate"/>
+                    <input ng-show="evaluating" type="submit" class="btn btn-link" value="Evaluating..."
+                           disabled="disabled"/>
+                    <a class="btn btn-link" ng-hide="evaluating" ng-click="resetBoard(queensBoard) && false">Reset
+                        board
+                    </a>
+                </form>
+
+                <div class="activity-log-container" style="height:{{queensBoard.queens.length*60}}px;">
+                    <p ng-repeat="line in activityLog">{{line}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-footer">
+        <div class="legend-item">
+            <div class="cell">
+                <img src="../img/queen-outline.png"/>
+            </div>
+            <span>Initial queen positions ({{queensBoard.initialH}} attacking pairs)</span>
+        </div>
+        <div class="legend-item" ng-class="{
+             'queen-success': queensBoard.best === 0,
+             'queen-excellent': queensBoard.best === 1,
+             'queen-good': (queensBoard.best > 1 && queensBoard.best <= 3),
+             'queen-fail': (queensBoard.best > 3)
+         }">
+            <div class="cell">
+                <img src="../img/queen-full.png"/>
+            </div>
+            <span>
+                Final ({{queensBoard.iterations}} tries,
+                {{queensBoard.h}} attacking pairs -
+                Took {{queensBoard | timespan:false}} ms
+            </span>
+        </div>
+        <div class="legend-item">
+            Legend:<br><br>
+            <span class="queen-success">WIN!</span>
+            <span class="queen-excellent">Great</span>
+            <span class="queen-good">Fair</span>
+            <span class="queen-fail">Yikes</span>
+        </div>
+    </div>
+</div>
+
