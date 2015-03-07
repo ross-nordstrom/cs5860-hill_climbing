@@ -25,7 +25,7 @@
                 <table ng-show="queensBoard" class="queens-container" style="min-width:{{numQueens*60}}px;">
                     <tr ng-repeat="row in queensBoard.board" class="queens-row">
                         <td ng-repeat="cell in row" class="cell" ng-click="columnClick(queensBoard, cell.col)">
-                            <span class="float-text">{{cell.opportunity}}</span>
+                            <span ng-hide="cell.queen" class="float-text">{{cell.opportunity}}</span>
                             <img style="{{cell.queen ? 'height:20px;' : ''}}" ng-show="cell.initialQueen"
                                  src="../img/queen-outline.png"/>
                             <img style="{{cell.initialQueen ? 'height:20px;' : ''}}" ng-show="cell.queen"

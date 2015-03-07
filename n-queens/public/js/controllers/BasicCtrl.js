@@ -2,6 +2,7 @@ angular.module('BasicCtrl', [])
     .controller('BasicController', ['$scope', 'Queens', 'HillClimb', function ($scope, Queens, HillClimb) {
 
         var NUMBER_OF_BEST_TO_KEEP = 5;
+        var MAX_ATTEMPTS = 10000;
 
         $scope.title = "Basic Hill Climbing Demo";
         $scope.description = "Select number of queens in upper right and generate a random board.\n" +
@@ -22,10 +23,25 @@ angular.module('BasicCtrl', [])
             // Untranspose for operating on
             boardObj.board = Queens.transpose(boardObj.board);
 
+            var curBoard = Queens.storeBoard(boardObj);
+            var initialBoard = curBoard;
+            curBoard.iterations = 0;
+            $scope.activityLog = [];
 
-            $scope.queensBoard = Queens.mergeBoards($scope.queensBoard, nextBoardObj);
-            // Transpose for viewing
-            $scope.queensBoard.board = Queens.transpose($scope.queensBoard.board);
+            $scope.loading = true;
+
+            $timeout(function () {
+
+                for (i = 1; i < MAX_ATTEMPTS && curBoard.h !== 0; i++) {
+
+                }
+
+                $scope.queensBoard = Queens.mergeBoards($scope.queensBoard, nextBoardObj);
+                // Transpose for viewing
+                $scope.queensBoard.board = Queens.transpose($scope.queensBoard.board);
+
+                $scope.loading = false;
+            });
         }
 
         $scope.regenerate = function (maxAttempts, num) {
@@ -70,7 +86,7 @@ angular.module('BasicCtrl', [])
             //boardObj = Queens.storeBoard(boardObj);
             var nextBoardObj = HillClimb.basicHillClimbStep(boardObj, colIdx);
 
-            $scope.queensBoard = Queens.mergeBoards(Queens.storeBoard($scope.queensBoard), nextBoardObj);
+            $scope.queensBoard = Queens.mergeBoards($scope.queensBoard, nextBoardObj);
             $scope.queensBoard.board = Queens.transpose($scope.queensBoard.board);
         };
 
