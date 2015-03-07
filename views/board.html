@@ -28,9 +28,9 @@
                         <td ng-repeat="cell in row" class="cell" ng-click="columnClick(queensBoard, cell.col)">
                             <span ng-hide="cell.queen" class="float-text">{{cell.opportunity}}</span>
                             <img style="{{cell.queen ? 'height:20px;' : ''}}" ng-show="cell.initialQueen"
-                                 src="../img/queen-outline.png"/>
+                                 src="cs5860-hill_climbing/img/queen-outline.png"/>
                             <img style="{{cell.initialQueen ? 'height:20px;' : ''}}" ng-show="cell.queen"
-                                 src="../img/queen-full.png"/>
+                                 src="cs5860-hill_climbing//img/queen-full.png"/>
                         </td>
                     </tr>
                 </table>
@@ -70,7 +70,7 @@
     <div class="panel-footer">
         <div class="legend-item">
             <div class="cell">
-                <img src="../img/queen-outline.png"/>
+                <img src="cs5860-hill_climbing/img/queen-outline.png"/>
             </div>
             <span>Initial queen positions ({{queensBoard.initialH}} attacking pairs)</span>
         </div>
@@ -81,7 +81,7 @@
              'queen-fail': (queensBoard.best > 3)
          }">
             <div class="cell">
-                <img src="../img/queen-full.png"/>
+                <img src="cs5860-hill_climbing/img/queen-full.png"/>
             </div>
             <span>
                 Final ({{queensBoard.iterations}} tries,
