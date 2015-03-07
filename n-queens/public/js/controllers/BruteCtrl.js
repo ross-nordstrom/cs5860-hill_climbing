@@ -78,6 +78,7 @@ angular.module('BruteCtrl', [])
 
         // Common functions called by shared board.html
         $scope.boardDebug = $scope.analyzeMoves;
+        $scope.resetBoard = Queens.resetBoard;
 
         // Initialize
         $scope.regenerate($scope.maxAttempts, $scope.numQueens);

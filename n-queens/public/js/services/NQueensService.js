@@ -88,6 +88,21 @@ angular.module('NQueensService', []).factory('Queens', [function () {
         return boardObj;
     }
 
+    function resetBoard(boardObj) {
+        _.each(boardObj.board, function (col) {
+            _.each(col, function (row) {
+                row.queen = row.initialQueen;
+                row.initialQueen = false;
+                row.opportunity = null;
+            })
+        });
+        boardObj.h = boardObj.initialH;
+        boardObj.best = boardObj.initialH;
+        boardObj.iterations = 0;
+
+        return boardObj;
+    }
+
     function mergeBoards(firstBoard, secondBoard) {
         var boardObj = JSON.parse(JSON.stringify(firstBoard));
 
@@ -129,7 +144,7 @@ angular.module('NQueensService', []).factory('Queens', [function () {
 
     function bestBoard(boards) {
         return _.min(boards, function (b) {
-            return b.h;
+            return b.h + Math.random() / 2; // Add random fraction for changing sorts
         });
     }
 
@@ -181,6 +196,7 @@ angular.module('NQueensService', []).factory('Queens', [function () {
         randomBoard: randomBoard,
         updateBoard: updateBoard,
         storeBoard: storeBoard,
+        resetBoard: resetBoard,
         mergeBoards: mergeBoards,
         analyzeColumn: analyzeColumn,
         bestBoard: bestBoard,

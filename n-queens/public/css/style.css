@@ -62,7 +62,6 @@
 }
 
 .activity-log-container {
-    height: 400px;
     overflow-y: scroll;
 }
 

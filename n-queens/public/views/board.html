@@ -8,7 +8,7 @@
             <input ng-hide="attemptsDisabled" type="number" ng-model="maxAttempts" title="Max attempts"
                    min="0"
                    max="{{attemptsLimit}}"/>
-            <input type="number" ng-model="numQueens" title="Num queens" min="1" max="12"/>
+            <input type="number" ng-model="numQueens" title="Num queens" min="1" max="16"/>
             <input ng-hide="loading || evaluating" type="submit" class="btn btn-success" value="Generate"/>
             <input ng-show="loading" type="submit" class="btn btn-link" value="Generating..." disabled="disabled"/>
         </form>
@@ -55,9 +55,12 @@
                            value="Evaluate"/>
                     <input ng-show="evaluating" type="submit" class="btn btn-link" value="Evaluating..."
                            disabled="disabled"/>
+                    <a class="btn btn-link" ng-hide="evaluating" ng-click="resetBoard(queensBoard) && false">Reset
+                        board
+                    </a>
                 </form>
 
-                <div class="activity-log-container">
+                <div class="activity-log-container" style="height:{{queensBoard.queens.length*60}}px;">
                     <p ng-repeat="line in activityLog">{{line}}</p>
                 </div>
             </div>
