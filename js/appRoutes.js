@@ -3,17 +3,17 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
     $routeProvider
 
         .when('/', {
-            templateUrl: 'views/basic.html',
+            templateUrl: 'cs5860-hill_climbing/views/basic.html',
             controller: 'BasicController'
         })
 
         .when('/brute', {
-            templateUrl: 'views/brute.html',
+            templateUrl: 'cs5860-hill_climbing/views/brute.html',
             controller: 'BruteController'
         })
 
         .when('/advanced', {
-            templateUrl: 'views/advanced.html',
+            templateUrl: 'cs5860-hill_climbing/views/advanced.html',
             controller: 'AdvancedController'
         });
 
