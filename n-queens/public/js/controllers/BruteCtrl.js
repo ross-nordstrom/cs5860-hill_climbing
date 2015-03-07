@@ -1,6 +1,8 @@
 angular.module('BruteCtrl', [])
     .controller('BruteController', ['$scope', '$timeout', 'Queens', function ($scope, $timeout, Queens) {
 
+        var NUMBER_OF_BEST_TO_KEEP = 5;
+
         $scope.attemptsLimit = 100000;
         $scope.maxAttempts = 100;
         $scope.numQueens = 8;
@@ -8,9 +10,11 @@ angular.module('BruteCtrl', [])
 
         $scope.regenerate = function (maxAttempts, num) {
             var i;
-            var curBoard = $scope.queensBoard = Queens.randomBoard(num);
-            var bestBoard = curBoard;
-            var best = curBoard.best;
+            var curBoard = Queens.randomBoard(num);
+            var initialBoard = curBoard;
+            curBoard.iterations = 0;
+            var bestBoards = [curBoard];
+            $scope.activityLog = [];
 
             $scope.loading = true;
 
@@ -18,23 +22,56 @@ angular.module('BruteCtrl', [])
 
                 for (i = 1; i < maxAttempts && curBoard.h !== 0; i++) {
                     curBoard = Queens.randomBoard(num);
-                    best = Math.min(best, curBoard.best);
-                    if (best === curBoard.best) {
-                        bestBoard = curBoard;
+                    if (curBoard.h < bestBoards[bestBoards.length - 1].h || bestBoards.length < NUMBER_OF_BEST_TO_KEEP) {
+                        curBoard.iterations = i;
+                        var targetIndex = _.sortedIndex(bestBoards, curBoard, function (b) {
+                            // Sorted insert by lowest h
+                            return b.h;
+                        });
+                        if (targetIndex < NUMBER_OF_BEST_TO_KEEP) {
+                            bestBoards.splice(targetIndex, 0, curBoard);
+                            if (bestBoards.length > NUMBER_OF_BEST_TO_KEEP) {
+                                bestBoards.splice(NUMBER_OF_BEST_TO_KEEP);
+                            }
+                        }
                     }
                 }
 
-                $scope.queensBoard = Queens.mergeBoards(Queens.storeBoard($scope.queensBoard), bestBoard);
+                $scope.queensBoard = Queens.mergeBoards(Queens.storeBoard(initialBoard), bestBoards[0]);
                 $scope.queensBoard.board = Queens.transpose($scope.queensBoard.board);
 
-                $scope.queensBoard.h = bestBoard.h;
-                $scope.queensBoard.best = best;
                 $scope.queensBoard.iterations = i;
                 $scope.queensBoard.end = new Date();
+
+                $scope.activityLog = _.flatten([
+                    [moment($scope.queensBoard.start).format('HH:mm:ss.SSS'), '-', 'Start up to', $scope.maxAttempts, 'attempts via random board generation'].join(' '),
+                    ['Top', NUMBER_OF_BEST_TO_KEEP, 'best boards:'].join(' '),
+                    _.map(_.sortBy(bestBoards, 'end'), function (b) {
+                        return [moment(b.end).format('HH:mm:ss.SSS'), '-', b.iterations + 1, 'tries', b.h, 'attacking pairs'].join(' ');
+                    }),
+                    [moment($scope.queensBoard.end).format('HH:mm:ss.SSS'), '-', 'Finished', $scope.queensBoard.iterations, 'attempts'].join(' ')
+                ]);
 
                 $scope.loading = false;
             });
         };
+
+        $scope.analyzeMoves = function (boardObj) {
+            // Untranspose for operating on
+            boardObj.board = Queens.transpose(boardObj.board);
+
+            var nextBoardObj = _.reduce(_.range(boardObj.queens.length), function (workingBoardObj, colIdx) {
+                return Queens.analyzeColumn(workingBoardObj, colIdx);
+            }, boardObj);
+
+            $scope.queensBoard = Queens.mergeBoards($scope.queensBoard, nextBoardObj);
+            // Transpose for viewing
+            $scope.queensBoard.board = Queens.transpose($scope.queensBoard.board);
+        };
+
+
+        // Common functions called by shared board.html
+        $scope.boardDebug = $scope.analyzeMoves;
 
         // Initialize
         $scope.regenerate($scope.maxAttempts, $scope.numQueens);

@@ -5,11 +5,10 @@
         </h2>
 
         <form class="panel-actions" ng-submit="!loading && regenerate(maxAttempts, numQueens)">
-            <input ng-disabled="attemptsDisabled" type="number" ng-model="maxAttempts" placeholder="Max attempts"
+            <input ng-hide="attemptsDisabled" type="number" ng-model="maxAttempts" placeholder="Max attempts"
                    min="0"
                    max="{{attemptsLimit}}"/>
-            <input type="number" ng-model="numQueens" placeholder="Num queens"
-                   disabled="disabled" min="8" max="8"/>
+            <input type="number" ng-model="numQueens" placeholder="Num queens" min="1" max="12"/>
             <input ng-hide="loading" type="submit" class="btn btn-success" value="Regenerate"/>
             <input ng-show="loading" type="submit" class="btn btn-link" value="Generating..." disabled="disabled"/>
         </form>
@@ -21,7 +20,7 @@
                 <p ng-hide="queensBoard">
                     No board yet... Generate above
                 </p>
-                <table ng-show="queensBoard" class="queens-container">
+                <table ng-show="queensBoard" class="queens-container" style="min-width:{{numQueens*60}}px;">
                     <tr ng-repeat="row in queensBoard.board" class="queens-row">
                         <td ng-repeat="cell in row" class="cell" ng-click="columnClick(queensBoard, cell.col)">
                             <span class="float-text">{{cell.opportunity}}</span>
@@ -34,12 +33,16 @@
                 </table>
             </div>
             <div class="col-xs-6 col-md-4">
-                <h3>Activity Log</h3>
-                <button class="btn btn-info" ng-show="boardStep" ng-click="boardStep(queensBoard)">Step board</button>
-                <button class="btn btn-default" ng-show="boardDebug" ng-click="boardDebug(queensBoard)">Debug board
+                <h3>
+                    Activity Log
+                    <button class="btn success" ng-show="evaluate" ng-click="evaluate(queensBoard)">Evaluate</button>
+                </h3>
+                <button class="btn btn-default" ng-show="boardStep" ng-click="boardStep(queensBoard)">Step board
+                </button>
+                <button class="btn btn-link" ng-show="boardDebug" ng-click="boardDebug(queensBoard)">Debug board
                 </button>
 
-                <p>{{queensBoard.queens}}</p>
+                <p ng-repeat="line in activityLog">{{line}}</p>
             </div>
         </div>
     </div>

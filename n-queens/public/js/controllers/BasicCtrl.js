@@ -35,7 +35,7 @@ angular.module('BasicCtrl', [])
             boardObj.board = Queens.transpose(boardObj.board);
 
             var nextBoardObj = _.reduce(_.range(boardObj.queens.length), function (workingBoardObj, colIdx) {
-                return HillClimb.analyzeColumn(workingBoardObj, colIdx);
+                return Queens.analyzeColumn(workingBoardObj, colIdx);
             }, boardObj);
 
             $scope.queensBoard = Queens.mergeBoards($scope.queensBoard, nextBoardObj);
