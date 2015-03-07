@@ -5,11 +5,11 @@
         </h2>
 
         <form class="panel-actions" ng-submit="!loading && regenerate(maxAttempts, numQueens)">
-            <input ng-hide="attemptsDisabled" type="number" ng-model="maxAttempts" placeholder="Max attempts"
+            <input ng-hide="attemptsDisabled" type="number" ng-model="maxAttempts" title="Max attempts"
                    min="0"
                    max="{{attemptsLimit}}"/>
-            <input type="number" ng-model="numQueens" placeholder="Num queens" min="1" max="12"/>
-            <input ng-hide="loading" type="submit" class="btn btn-success" value="Generate"/>
+            <input type="number" ng-model="numQueens" title="Num queens" min="1" max="12"/>
+            <input ng-hide="loading || evaluating" type="submit" class="btn btn-success" value="Generate"/>
             <input ng-show="loading" type="submit" class="btn btn-link" value="Generating..." disabled="disabled"/>
         </form>
     </div>
@@ -17,12 +17,13 @@
     <div class="panel-body">
         <p>{{description}}</p>
 
-        <div class="row">
-            <div class="col-xs-12 col-md-8">
+        <div>
+            <div class="board-container">
                 <p ng-hide="queensBoard">
                     No board yet... Generate above
                 </p>
-                <table ng-show="queensBoard" class="queens-container" style="min-width:{{numQueens*60}}px;">
+                <table ng-show="queensBoard" class="queens-container"
+                       style="min-width:{{queensBoard.queens.length*60}}px;">
                     <tr ng-repeat="row in queensBoard.board" class="queens-row">
                         <td ng-repeat="cell in row" class="cell" ng-click="columnClick(queensBoard, cell.col)">
                             <span ng-hide="cell.queen" class="float-text">{{cell.opportunity}}</span>
@@ -33,19 +34,32 @@
                         </td>
                     </tr>
                 </table>
+                <br>
+
+                <div ng-show="queensBoard">
+                    <button class="btn btn-default" ng-show="boardStep" ng-click="boardStep(queensBoard)">Step</button>
+                    <button class="btn btn-link" ng-show="boardDebug" ng-click="boardDebug(queensBoard)">Debug board
+                    </button>
+                </div>
             </div>
-            <div class="col-xs-6 col-md-4">
+            <div class="info-container">
                 <h3>
                     Activity Log
-                    <button class="btn btn-success" ng-show="evaluate" ng-click="evaluate(queensBoard)">Evaluate
-                    </button>
                 </h3>
-                <button class="btn btn-default" ng-show="boardStep" ng-click="boardStep(queensBoard)">Step board
-                </button>
-                <button class="btn btn-link" ng-show="boardDebug" ng-click="boardDebug(queensBoard)">Debug board
-                </button>
 
-                <p ng-repeat="line in activityLog">{{line}}</p>
+                <form ng-submit="!evaluating && evaluate(queensBoard, sideMovesAllowed, restartsAllowed)">
+                    <input type="number" ng-model="sideMovesAllowed" title="Side moves allowed" min="0"
+                           max="999"/>
+                    <input type="number" ng-model="restartsAllowed" title="Restarts allowed" min="0" max="999"/>
+                    <input type="submit" ng-hide="evaluating || loading" class="btn btn-success" ng-show="evaluate"
+                           value="Evaluate"/>
+                    <input ng-show="evaluating" type="submit" class="btn btn-link" value="Evaluating..."
+                           disabled="disabled"/>
+                </form>
+
+                <div class="activity-log-container">
+                    <p ng-repeat="line in activityLog">{{line}}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -81,3 +95,4 @@
         </div>
     </div>
 </div>
+

@@ -60,3 +60,13 @@
     top: 2px;
     left: 6px;
 }
+
+.activity-log-container {
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.board-container {
+    float: left;
+    padding-right: 40px;
+}

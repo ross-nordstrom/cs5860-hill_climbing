@@ -16,9 +16,7 @@ angular.module('HillClimbingService', []).factory('HillClimb', ['Queens', functi
             .value();
 
         // Best neighbor board
-        return _.min(neighborBoards, function (nbrBoardObj) {
-            return nbrBoardObj.h;
-        });
+        return Queens.bestBoard(neighborBoards);
     }
 
 
@@ -26,5 +24,4 @@ angular.module('HillClimbingService', []).factory('HillClimb', ['Queens', functi
     return {
         basicHillClimbStep: basicHillClimbStep
     };
-
 }]);

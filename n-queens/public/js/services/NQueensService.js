@@ -111,6 +111,12 @@ angular.module('NQueensService', []).factory('Queens', [function () {
         return boardObj;
     }
 
+    function bestBoard(boards) {
+        return _.min(boards, function (b) {
+            return b.h;
+        });
+    }
+
     function transpose(a) {
         return a[0].map(function (_, c) {
             return a.map(function (r) {
@@ -161,6 +167,7 @@ angular.module('NQueensService', []).factory('Queens', [function () {
         storeBoard: storeBoard,
         mergeBoards: mergeBoards,
         analyzeColumn: analyzeColumn,
+        bestBoard: bestBoard,
         transpose: transpose
     };
 
