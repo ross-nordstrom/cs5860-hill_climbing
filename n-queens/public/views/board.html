@@ -1,7 +1,7 @@
-<div class="panel panel-primary">
+<div class="panel panel-default">
     <div class="panel-heading">
         <h2>
-            Initial Board
+            {{title}}
         </h2>
 
         <form class="panel-actions" ng-submit="!loading && regenerate(maxAttempts, numQueens)">
@@ -9,12 +9,14 @@
                    min="0"
                    max="{{attemptsLimit}}"/>
             <input type="number" ng-model="numQueens" placeholder="Num queens" min="1" max="12"/>
-            <input ng-hide="loading" type="submit" class="btn btn-success" value="Regenerate"/>
+            <input ng-hide="loading" type="submit" class="btn btn-success" value="Generate"/>
             <input ng-show="loading" type="submit" class="btn btn-link" value="Generating..." disabled="disabled"/>
         </form>
     </div>
 
     <div class="panel-body">
+        <p>{{description}}</p>
+
         <div class="row">
             <div class="col-xs-12 col-md-8">
                 <p ng-hide="queensBoard">
@@ -35,7 +37,8 @@
             <div class="col-xs-6 col-md-4">
                 <h3>
                     Activity Log
-                    <button class="btn success" ng-show="evaluate" ng-click="evaluate(queensBoard)">Evaluate</button>
+                    <button class="btn btn-success" ng-show="evaluate" ng-click="evaluate(queensBoard)">Evaluate
+                    </button>
                 </h3>
                 <button class="btn btn-default" ng-show="boardStep" ng-click="boardStep(queensBoard)">Step board
                 </button>

@@ -3,6 +3,12 @@ angular.module('BruteCtrl', [])
 
         var NUMBER_OF_BEST_TO_KEEP = 5;
 
+        $scope.title = "Brute Force via Random Search";
+        $scope.description = "Select a number of max search attempts and a number of queens in the upper right," +
+        "then select 'Generate' to start the search. You can see how long it took and what the best result was at" +
+        "the bottom of the panel. White queens show the starting positions, while black queens show the best result.\n" +
+        "The Activity Log will show you when each of the top results were found.";
+
         $scope.attemptsLimit = 100000;
         $scope.maxAttempts = 100;
         $scope.numQueens = 8;

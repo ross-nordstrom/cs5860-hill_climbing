@@ -1,11 +1,32 @@
 angular.module('BasicCtrl', [])
     .controller('BasicController', ['$scope', 'Queens', 'HillClimb', function ($scope, Queens, HillClimb) {
 
+        var NUMBER_OF_BEST_TO_KEEP = 5;
+
+        $scope.title = "Basic Hill Climbing Demo";
+        $scope.description = "Select number of queens in upper right and generate a random board.\n" +
+        "You can dive straight into Evaluation of the hill climbing with 'Evaluate'.\n" +
+        "If you'd like a closer look at what's going on, click 'Debug board' to see the resulting" +
+        "number of attacking pairs from moving a queen to another cell in the same column.\n" +
+        "Click a column to see which cell that queen would move to (the lowest number).\n" +
+        "Use 'Step board' to shuffle each queen once in order.\n\n" +
+        "For a comparison, select the 'Brute Force' tab to see how much longer it takes using random" +
+        "search!";
         $scope.attemptsLimit = 1;
         $scope.maxAttempts = 0;
         $scope.attemptsDisabled = true;
         $scope.numQueens = 8;
         $scope.queensBoard = null; //Queens.randomBoard($scope.numQueens);
+
+        function climb(boardObj, sideMoves, restartsAllowed) {
+            // Untranspose for operating on
+            boardObj.board = Queens.transpose(boardObj.board);
+
+
+            $scope.queensBoard = Queens.mergeBoards($scope.queensBoard, nextBoardObj);
+            // Transpose for viewing
+            $scope.queensBoard.board = Queens.transpose($scope.queensBoard.board);
+        }
 
         $scope.regenerate = function (maxAttempts, num) {
             var boardObj = Queens.randomBoard(num);
@@ -58,6 +79,7 @@ angular.module('BasicCtrl', [])
         $scope.columnClick = $scope.step;
         $scope.boardStep = $scope.iteration;
         $scope.boardDebug = $scope.analyzeMoves;
+        $scope.evaluate = climb;
 
         // Initialize
         $scope.regenerate($scope.maxAttempts, $scope.numQueens);
