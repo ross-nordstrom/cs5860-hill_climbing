@@ -12,6 +12,8 @@ angular.module('BasicCtrl', [])
             "For a comparison, select the 'Brute Force' tab to see how much longer it takes using random" +
             "search!";
 
+            $scope.configurations = [];
+            $scope.editConfig = false;
             $scope.sideMovesAllowed = 0;
             $scope.restartsAllowed = 0;
             $scope.attemptsLimit = 1;
@@ -19,6 +21,22 @@ angular.module('BasicCtrl', [])
             $scope.attemptsDisabled = true;
             $scope.numQueens = 8;
             $scope.queensBoard = null; //Queens.randomBoard($scope.numQueens);
+
+            $scope.addConfig = function (config) {
+                if (!_.isArray($scope.configurations)) {
+                    $scope.configurations = [];
+                }
+                $scope.configurations.push(config);
+            };
+            $scope.removeConfig = function (configIdx) {
+                if (!_.isArray($scope.configurations)) {
+                    $scope.configurations = [];
+                }
+                if ($scope.configurations.length < configIdx) {
+                    return; // Out of bounds
+                }
+                $scope.configurations.splice(configIdx, 1);
+            };
 
             function climb(boardObj, sideMovesAllowed, restartsAllowed) {
                 // Untranspose for operating on

@@ -61,11 +61,15 @@
     left: 6px;
 }
 
-.activity-log-container {
+.activity-log-container, .edit-config-container {
     overflow-y: scroll;
 }
 
 .board-container {
     float: left;
     padding-right: 40px;
+}
+
+.edit-btn {
+    width: 160px;
 }
