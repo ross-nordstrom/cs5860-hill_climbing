@@ -49,10 +49,15 @@
                         configuration</a>
                     <a ng-show="editConfig" class="edit-btn btn btn-warning" ng-click="editConfig = !editConfig">Done
                         editing</a>
+
                     <input type="submit" ng-hide="evaluating || loading" class="btn btn-success" ng-show="evaluate"
                            value="Evaluate"/>
                     <input ng-show="evaluating" type="submit" class="btn btn-link" value="Evaluating..."
                            disabled="disabled"/>
+                    <i class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="bottom"
+                       title="{{configurationsText}}">
+                    </i>
+
                     <a class="btn btn-link" ng-hide="evaluating" ng-click="resetBoard(queensBoard) && false">Reset
                         board
                     </a>
@@ -74,7 +79,7 @@
                         Evaluation Configuration
                     </h3>
 
-                    <form ng-submit="removeConfig($index)" ng-repeat="config in configurations">
+                    <form ng-submit="removeConfig($index)" ng-repeat="config in configurations track by $index">
                         {{$index+1}}.)
                         <input type="number" ng-model="config.sideMovesAllowed" title="Side moves allowed EACH restart"
                                min="0" max="99"/> side moves,

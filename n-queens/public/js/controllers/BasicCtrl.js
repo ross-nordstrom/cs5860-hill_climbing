@@ -13,7 +13,7 @@ angular.module('BasicCtrl', [])
             "For a comparison, select the 'Brute Force' tab to see how much longer it takes using random" +
             "search!";
 
-            $scope.configurations = [_.clone(DEFAULT_CONFIG)];
+            $scope.configurations = JSON.parse(sessionStorage.evalConfigurations) || [_.clone(DEFAULT_CONFIG)];
             $scope.newConfig = _.clone(DEFAULT_CONFIG);
             $scope.editConfig = false;
             $scope.sideMovesAllowed = 0;
@@ -23,12 +23,23 @@ angular.module('BasicCtrl', [])
             $scope.attemptsDisabled = true;
             $scope.numQueens = 8;
             $scope.queensBoard = null; //Queens.randomBoard($scope.numQueens);
+            $scope.configurationsText = '';
+
+            function setConfigText() {
+                $scope.configurationsText = _.map($scope.configurations, function (config) {
+                    return [config.sideMovesAllowed, 'side moves,', config.restartsAllowed, 'restarts,', config.repeat, 'times'].join(' ');
+                }).join('\n');
+            }
+
+            setConfigText();
 
             $scope.addConfig = function (config) {
                 if (!_.isArray($scope.configurations)) {
                     $scope.configurations = [];
                 }
                 $scope.configurations.push(config);
+                sessionStorage.evalConfigurations = JSON.stringify($scope.configurations);
+                setConfigText();
                 $scope.newConfig = _.clone(config);
             };
             $scope.removeConfig = function (configIdx) {
@@ -39,6 +50,8 @@ angular.module('BasicCtrl', [])
                     return; // Out of bounds
                 }
                 $scope.configurations.splice(configIdx, 1);
+                setConfigText();
+                sessionStorage.evalConfigurations = JSON.stringify($scope.configurations);
             };
 
             function climb(boardObj, configurations) {
@@ -106,14 +119,14 @@ angular.module('BasicCtrl', [])
 
                             activityLog.push([' |----> Best ', result.best === 0 ?
                                 '(success)' : '(fail: ' + result.best + ' attacking queens)',
-                                'in', result.iterations, 'tries:'
+                                'in', result.iterations, 'tries (' + (100 * result.summaryByResult.success.count / config.repeat).toFixed(1) + '% won):'
                             ].join(' '));
-                            if (result.best > 0) {
-                                _.each(_.range(3), function (i) {
-                                    var hSum = result.summaryByH[result.best + i];
-                                    activityLog.push([' |------> H=' + (result.best + i) + ':', !hSum ? 'N/A' : JSON.stringify(hSum)].join(' '));
-                                });
-                            }
+
+                            _.each(_.range(3), function (i) {
+                                var hSum = result.summaryByH[result.best + i];
+                                activityLog.push([' |------> H=' + (result.best + i) + ':', !hSum ? 'N/A' : JSON.stringify(hSum)].join(' '));
+                            });
+
                             activityLog.push([' `------> Failure summary:', JSON.stringify(result.summaryByResult.failure)].join(' '));
                             activityLog.push([' |------> Success summary:', result.best > 0 ? 'N/A' : JSON.stringify(result.summaryByResult.success)].join(' '));
 
