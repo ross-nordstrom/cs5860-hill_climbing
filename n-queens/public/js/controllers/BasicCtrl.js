@@ -1,6 +1,7 @@
 angular.module('BasicCtrl', [])
-    .controller('BasicController', ['$scope', '$timeout', 'Queens', 'HillClimb',
-        function ($scope, $timeout, Queens, HillClimb) {
+    .controller('BasicController', ['$scope', '$timeout', '$filter', 'Queens', 'HillClimb',
+        function ($scope, $timeout, $filter, Queens, HillClimb) {
+            var DEFAULT_CONFIG = {sideMovesAllowed: 0, restartsAllowed: 0, repeat: 10};
 
             $scope.title = "Basic Hill Climbing Demo";
             $scope.description = "Select number of queens in upper right and generate a random board.\n" +
@@ -12,7 +13,8 @@ angular.module('BasicCtrl', [])
             "For a comparison, select the 'Brute Force' tab to see how much longer it takes using random" +
             "search!";
 
-            $scope.configurations = [];
+            $scope.configurations = [_.clone(DEFAULT_CONFIG)];
+            $scope.newConfig = _.clone(DEFAULT_CONFIG);
             $scope.editConfig = false;
             $scope.sideMovesAllowed = 0;
             $scope.restartsAllowed = 0;
@@ -27,6 +29,7 @@ angular.module('BasicCtrl', [])
                     $scope.configurations = [];
                 }
                 $scope.configurations.push(config);
+                $scope.newConfig = _.clone(config);
             };
             $scope.removeConfig = function (configIdx) {
                 if (!_.isArray($scope.configurations)) {
@@ -38,7 +41,7 @@ angular.module('BasicCtrl', [])
                 $scope.configurations.splice(configIdx, 1);
             };
 
-            function climb(boardObj, sideMovesAllowed, restartsAllowed) {
+            function climb(boardObj, configurations) {
                 // Untranspose for operating on
                 boardObj.board = Queens.transpose(boardObj.board);
 
@@ -46,11 +49,80 @@ angular.module('BasicCtrl', [])
 
                 $timeout(function () {
 
-                        $scope.queensBoard = HillClimb.climb(boardObj, sideMovesAllowed, restartsAllowed);
+                        var activityLog = [];
+
+                        var results = _.map(configurations, function (config) {
+
+                            activityLog.push(['**Evaluate configuration**'].join(' '));
+                            activityLog.push([' |--> ',
+                                config.sideMovesAllowed, 'side moves,',
+                                config.restartsAllowed, 'restarts,',
+                                config.repeat, 'times'
+                            ].join(' '));
+
+                            var result = _.reduce(_.range(config.repeat), function (result, i) {
+                                    var boardResult = HillClimb.climb(boardObj, config.sideMovesAllowed, config.restartsAllowed);
+                                    activityLog.concat(boardResult.activityLog);
+
+                                    // Record best for optional display
+                                    if (boardResult.best < result.best || (boardResult.best === result.best && boardResult.iterations < result.iterations)) {
+                                        result.best = boardResult.best;
+                                        result.iterations = boardResult.iterations;
+                                        result.bestQueens = boardResult.queens;
+                                    }
+
+                                    // Update summary indexed by # attacking queens (h)
+                                    var curSummary = result.summaryByH[boardResult.h] || {};
+                                    var duration = $filter('timespan')(boardResult);
+                                    result.summaryByH[boardResult.h] = {
+                                        count: (curSummary.count || 0) + 1,
+                                        meanTime: ( (curSummary.mean || 0) * (curSummary.count || 0) + duration ) / ((curSummary.count || 0) + 1),
+                                        maxTime: Math.max(curSummary.max || -Infinity, duration),
+                                        minTime: Math.min(curSummary.min || Infinity, duration)
+                                    };
+
+                                    // Update summary indexed by success vs failure
+                                    var resultStr = boardResult.h === 0 ? 'success' : 'failure';
+                                    curSummary = result.summaryByResult[resultStr] || {};
+                                    result.summaryByResult[resultStr] = {
+                                        count: (curSummary.count || 0) + 1,
+                                        meanTime: ( (curSummary.meanTime || 0) * (curSummary.count || 0) + duration ) / ((curSummary.count || 0) + 1),
+                                        maxTime: Math.max(curSummary.maxTime || -Infinity, duration),
+                                        minTime: Math.min(curSummary.minTime || Infinity, duration)
+                                    };
+
+                                    return result;
+                                },
+
+                                // Reduce accumulator object
+                                {
+                                    iterations: Infinity,
+                                    summaryByH: {},
+                                    summaryByResult: {success: {}, failure: {}},
+                                    best: Infinity,
+                                    bestQueens: null
+                                }
+                            );
+
+                            activityLog.push([' |----> Best ', result.best === 0 ?
+                                '(success)' : '(fail: ' + result.best + ' attacking queens)',
+                                'in', result.iterations, 'tries:'
+                            ].join(' '));
+                            if (result.best > 0) {
+                                _.each(_.range(3), function (i) {
+                                    var hSum = result.summaryByH[result.best + i];
+                                    activityLog.push([' |------> H=' + (result.best + i) + ':', !hSum ? 'N/A' : JSON.stringify(hSum)].join(' '));
+                                });
+                            }
+                            activityLog.push([' `------> Failure summary:', JSON.stringify(result.summaryByResult.failure)].join(' '));
+                            activityLog.push([' |------> Success summary:', result.best > 0 ? 'N/A' : JSON.stringify(result.summaryByResult.success)].join(' '));
+
+                            return result;
+                        });
+                        $scope.activityLog = activityLog;
+
                         // Transpose for viewing
                         $scope.queensBoard.board = Queens.transpose($scope.queensBoard.board);
-
-                        $scope.activityLog = $scope.queensBoard.activityLog;
 
                         $scope.evaluating = false;
                     }

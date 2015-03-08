@@ -65,7 +65,7 @@
                         Activity Log
                     </h3>
 
-                    <p ng-repeat="line in activityLog">{{line}}</p>
+                    <p ng-repeat="line in activityLog track by $index">{{line}}</p>
                 </div>
                 <div ng-show="editConfig" class="edit-config-container"
                      style="height:{{queensBoard.queens.length*60}}px;">
@@ -75,12 +75,13 @@
                     </h3>
 
                     <form ng-submit="removeConfig($index)" ng-repeat="config in configurations">
-                        {{$index}}.)
+                        {{$index+1}}.)
                         <input type="number" ng-model="config.sideMovesAllowed" title="Side moves allowed EACH restart"
                                min="0" max="99"/> side moves,
                         <input type="number" ng-model="config.restartsAllowed" title="Restarts allowed"
-                               min="0" max="999"/> restarts allowed,
-                        <input type="number" ng-model="config.repeat" title="How many times to repeat this config">
+                               min="0" max="999"/> restarts,
+                        <input type="number" min="0" max="99" ng-model="config.repeat"
+                               title="How many times to repeat this config">
                         times.
                         <input type="submit" class="btn btn-link" value="Remove config"/>
                     </form>
@@ -95,7 +96,7 @@
                         <input type="number" min="0" max="99" ng-model="newConfig.repeat"
                                title="How many times to repeat this config">
                         times.
-                        <input class="btn btn-primary" value="Add config"/>
+                        <input type="submit" class="btn btn-primary" value="Add config"/>
                     </form>
                 </div>
             </div>
