@@ -45,10 +45,10 @@
             <div class="info-container">
 
                 <form ng-submit="!evaluating && evaluate(queensBoard, configurations)">
-                    <a ng-hide="editConfig" class="edit-btn btn btn-default" ng-click="editConfig = !editConfig">Edit
+                    <a ng-hide="editConfig" class="edit-btn btn btn-default" ng-click="toggleConfig()">Edit
                         configuration</a>
                     <a ng-show="editConfig" class="edit-btn btn btn-warning"
-                       ng-click="editConfig = !editConfig">Done editing</a>
+                       ng-click="toggleConfig()">Done editing</a>
 
                     <input type="submit" ng-hide="evaluating || loading" class="btn btn-success" ng-show="evaluate"
                            value="Evaluate"/>
@@ -221,10 +221,10 @@
                     <form ng-submit="removeConfig($index)" ng-repeat="config in configurations track by $index">
                         {{$index+1}}.)
                         <input type="number" ng-model="config.sideMovesAllowed" title="Side moves allowed EACH restart"
-                               min="0" max="99"/> side moves,
+                               min="0" max="999"/> side moves,
                         <input type="number" ng-model="config.restartsAllowed" title="Restarts allowed"
                                min="0" max="999"/> restarts,
-                        <input type="number" min="0" max="99" ng-model="config.repeat"
+                        <input type="number" min="0" max="999" ng-model="config.repeat"
                                title="How many times to repeat this config">
                         times.
                         <input type="submit" class="btn btn-link" value="Remove config"/>

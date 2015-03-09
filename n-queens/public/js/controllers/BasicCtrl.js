@@ -46,6 +46,10 @@ angular.module('BasicCtrl', [])
             restoreConfig();
             setConfigText();
 
+            $scope.toggleConfig = function () {
+                $scope.editConfig = !$scope.editConfig
+            };
+            
             $scope.addConfig = function (config) {
                 if (!_.isArray($scope.configurations)) {
                     $scope.configurations = [];
