@@ -55,6 +55,32 @@
     border: 8px solid darkred;
 }
 
+.results-table th, .results-table td {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.result-success {
+    color: green;
+    font-weight: bold;
+    border-left: 8px solid green;
+}
+
+.result-excellent {
+    /*color: gold;*/
+    border-left: 8px solid gold;
+}
+
+.result-good {
+    /*color: darkorange;*/
+    border-left: 8px solid darkorange;
+}
+
+.result-fail {
+    /*color: darkred;*/
+    border-left: 8px solid darkred;
+}
+
 .float-text {
     position: absolute;
     top: 2px;

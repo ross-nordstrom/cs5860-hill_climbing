@@ -13,9 +13,9 @@ angular.module('BasicCtrl', [])
             "For a comparison, select the 'Brute Force' tab to see how much longer it takes using random" +
             "search!";
 
-            $scope.configurations = JSON.parse(sessionStorage.evalConfigurations) || [_.clone(DEFAULT_CONFIG)];
             $scope.newConfig = _.clone(DEFAULT_CONFIG);
             $scope.editConfig = false;
+            $scope.showActivityLog = true;
             $scope.sideMovesAllowed = 0;
             $scope.restartsAllowed = 0;
             $scope.attemptsLimit = 1;
@@ -31,6 +31,19 @@ angular.module('BasicCtrl', [])
                 }).join('\n');
             }
 
+            function saveConfig() {
+                sessionStorage.evalConfigurations = JSON.stringify($scope.configurations);
+            }
+
+            function restoreConfig() {
+                try {
+                    $scope.configurations = JSON.parse(sessionStorage.evalConfigurations);
+                } catch (e) {
+                }
+                $scope.configurations = $scope.configurations || [_.clone(DEFAULT_CONFIG)];
+            }
+
+            restoreConfig();
             setConfigText();
 
             $scope.addConfig = function (config) {
@@ -38,7 +51,7 @@ angular.module('BasicCtrl', [])
                     $scope.configurations = [];
                 }
                 $scope.configurations.push(config);
-                sessionStorage.evalConfigurations = JSON.stringify($scope.configurations);
+                saveConfig();
                 setConfigText();
                 $scope.newConfig = _.clone(config);
             };
@@ -50,9 +63,15 @@ angular.module('BasicCtrl', [])
                     return; // Out of bounds
                 }
                 $scope.configurations.splice(configIdx, 1);
+                saveConfig();
                 setConfigText();
-                sessionStorage.evalConfigurations = JSON.stringify($scope.configurations);
             };
+
+            $scope.$watch('editConfig', function (newEdit, oldEdit) {
+                if (!newEdit && oldEdit) {
+                    saveConfig();
+                }
+            });
 
             function climb(boardObj, configurations) {
                 // Untranspose for operating on
@@ -63,6 +82,7 @@ angular.module('BasicCtrl', [])
                 $timeout(function () {
 
                         var activityLog = [];
+                        $scope.results = [];
 
                         var results = _.map(configurations, function (config) {
 
@@ -104,7 +124,7 @@ angular.module('BasicCtrl', [])
                                         minTime: Math.min(curSummary.minTime || Infinity, duration)
                                     };
 
-                                    return result;
+                                    return _.extend(result, {configuration: config});
                                 },
 
                                 // Reduce accumulator object
@@ -133,6 +153,7 @@ angular.module('BasicCtrl', [])
                             return result;
                         });
                         $scope.activityLog = activityLog;
+                        $scope.results = results;
 
                         // Transpose for viewing
                         $scope.queensBoard.board = Queens.transpose($scope.queensBoard.board);
