@@ -11,7 +11,7 @@ all:
 	mv *.bbl build/.
 	mv *.blg build/.
 	mv *.out build/.
-	mv proposal.pdf My_Project.pdf
+	mv proposal.pdf Nordstrom_HW1_LocalSearch.pdf
 
 clean:
 	rm -fv *.aux *.pdf *.log *.bbl *.blg *.out

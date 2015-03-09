@@ -1,6 +1,12 @@
 angular.module('HillClimbingService', []).factory('HillClimb', ['Queens', function (Queens) {
     var MAX_ATTEMPTS = 10000;
 
+    /**
+     * Given a board, move the queen in a given column to the best neighboring spot in that column
+     * @param boardObj
+     * @param col       - Which column to move
+     * @returns {*}     - Resulting board after the move
+     */
     function climbingStep(boardObj, col) {
         var range = _.range(boardObj.queens.length);
         var currentQueenRowIdx = _.find(boardObj.board[col], {queen: true}).row;
@@ -20,6 +26,14 @@ angular.module('HillClimbingService', []).factory('HillClimb', ['Queens', functi
         return Queens.bestBoard(neighborBoards);
     }
 
+    /**
+     * Run a full evaluation of the board using parametrized hill climbing.
+     * @param boardObj
+     * @param sideMovesAllowed      - How many side moves allowed **per restart**
+     * @param restartsAllowed       - How many restarts allowed when we cannot make any more moves (out of side moves, stuck in local minima)
+     * @param restartRate           - **NOT IMPLEMENTED** Would randomly restart regardless of better moves being available
+     * @returns {*}                 - Resulting board after the full hill climb, including iterations (steps) to accomplish it.
+     */
     function climb(boardObj, sideMovesAllowed, restartsAllowed, restartRate) {
 
         var i;
