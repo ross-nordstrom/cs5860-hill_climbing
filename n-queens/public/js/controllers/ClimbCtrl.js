@@ -1,5 +1,5 @@
-angular.module('BasicCtrl', [])
-    .controller('BasicController', ['$scope', '$timeout', '$filter', 'Queens', 'HillClimb',
+angular.module('ClimbCtrl', [])
+    .controller('ClimbController', ['$scope', '$timeout', '$filter', 'Queens', 'HillClimb',
         function ($scope, $timeout, $filter, Queens, HillClimb) {
             var DEFAULT_CONFIG = {sideMovesAllowed: 0, restartsAllowed: 0, repeat: 10};
 
@@ -49,7 +49,7 @@ angular.module('BasicCtrl', [])
             $scope.toggleConfig = function () {
                 $scope.editConfig = !$scope.editConfig
             };
-            
+
             $scope.addConfig = function (config) {
                 if (!_.isArray($scope.configurations)) {
                     $scope.configurations = [];

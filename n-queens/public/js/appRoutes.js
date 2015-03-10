@@ -3,8 +3,8 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
     $routeProvider
 
         .when('/', {
-            templateUrl: 'views/basic.html',
-            controller: 'BasicController'
+            templateUrl: 'views/climb.html',
+            controller: 'ClimbController'
         })
 
         .when('/brute', {
