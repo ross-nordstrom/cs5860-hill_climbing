@@ -1,7 +1,7 @@
 angular.module('hw1App',
     [
         'ngRoute', 'appRoutes',
-        'MainCtrl', 'ClimbCtrl', 'BruteCtrl',
+        'ClimbCtrl', 'BruteCtrl',
         'HillClimbingService', 'NQueensService',
         'TimeFilters'
     ]);

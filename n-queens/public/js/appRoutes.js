@@ -12,11 +12,6 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controller: 'BruteController'
         })
 
-        .when('/advanced', {
-            templateUrl: 'views/advanced.html',
-            controller: 'AdvancedController'
-        });
-
     $locationProvider.html5Mode(false);
 
 }]);
