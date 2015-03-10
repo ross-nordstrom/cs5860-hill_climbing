@@ -56,4 +56,29 @@ is described:
   \item[appRoutes.js]   Defines the app routes, connecting URLs to a controller and view
 \end{description}
 
-\subsubsection{}
+\subsection{N-Queens Modelling}
+One of the critical parts of the assignment is modelling the N-Queens board. This solution used a board-focused model,
+with the board stored as a 2D array of objects representing each cell. The cell object stores a number of fields:
+
+\begin{description}
+\item{queen} Whether or not a queen is in the cell now
+\item{initialQueen} Whether or not a queen started out in the cell in the initial board
+\item{opportunity} Number of attacking queens if the queen in that row were moved to this cell
+\item{row} Reverse lookup of where the cell is
+\item{col} Reverse lookup of where the cell is
+\end{description}
+
+The board object itself resides inside a larger object containing metadata about the board state:
+
+\begin{description}
+\item{board} The board with N^2 cells as described above
+\item{queens} Denormalized store of the queens in the board
+\item{best} The best H achieved while hill climbing with this board
+\item{h} Current number of pairs of attacking queens in the board
+\item{iterations} How many queen moves have been made against this board
+\item{start} Timestamp when hill climbing (or random brute force) was started on this board) began
+\item{end} Timestamp when hill climbing (or random brute force) ended
+\end{description}
+
+In hindsight, the 2D N*N array representing the board was redundant with the much simpler 1D N array of queens.
+Simplifying the model in this way could save prescious computation time, improving overall performance.
