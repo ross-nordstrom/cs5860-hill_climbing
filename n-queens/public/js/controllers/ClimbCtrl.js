@@ -189,9 +189,15 @@ angular.module('ClimbCtrl', [])
                 // Transpose for viewing
                 $scope.queensBoard.board = Queens.transpose($scope.queensBoard.board);
                 $scope.queensBoard.iterations++;
+
+                // Redo debug if they had it on
+                if ($scope.debugging) {
+                    $scope.analyzeMoves($scope.queensBoard);
+                }
             };
 
             $scope.analyzeMoves = function (boardObj) {
+                $scope.debugging = true;
                 // Untranspose for operating on
                 boardObj.board = Queens.transpose(boardObj.board);
 
@@ -212,6 +218,12 @@ angular.module('ClimbCtrl', [])
 
                 $scope.queensBoard = Queens.mergeBoards($scope.queensBoard, nextBoardObj);
                 $scope.queensBoard.board = Queens.transpose($scope.queensBoard.board);
+                $scope.queensBoard.iterations++;
+
+                // Redo debug if they had it on
+                if ($scope.debugging) {
+                    $scope.analyzeMoves($scope.queensBoard);
+                }
             };
 
 
