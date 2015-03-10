@@ -38,14 +38,22 @@ The core of the project is in the Javascript files under \texttt{n-queens/public
 is described:
 
 \begin{description}
-  \item[/controllers]   -- Contains business logic wiring up Hill Climbing backend code to user interaction in the UI
+  \item[/controllers]   Contains business logic wiring up Hill Climbing backend code to user interaction in the UI
   \begin{description}
-    \item{BruteCtrl.js} -- Manages the brute force page
-    \item{ClimbCtrl.js} -- Manages the Hill Climbing page
-    \item{MainCtrl.js}  -- Not used
+    \item{BruteCtrl.js}             Manages the brute force page
+    \item{ClimbCtrl.js}             Manages the Hill Climbing page
   \end{description}
-  \item[/filters]       -- Contains AngularJS filters, which help transform data/text in the UI
-  \item[/services]      -- Contains models and core code implementing the Hill Climbing algorithms
-  \item[app.js]         -- Declares the AngularJS application, including dependencies
-  \item[appRoutes.js]   -- Defines the app routes, connecting URLs to a controller and view
+  \item[/filters]       Contains AngularJS filters, which help transform data/text in the UI
+  \begin{description}
+    \item{TimeFilters.js}           Filters for showing timespans in the UI
+  \end{description}
+  \item[/services]      Contains models and core code implementing the Hill Climbing algorithms
+  \begin{description}
+    \item{HillClimbingService.js}   Implements the Hill Climbing algorithm
+    \item{NQUeensService.js}        Abstractions around an N*N board with a Queen in each column
+  \end{description}
+  \item[app.js]         Declares the AngularJS application, including dependencies
+  \item[appRoutes.js]   Defines the app routes, connecting URLs to a controller and view
 \end{description}
+
+\subsubsection{}

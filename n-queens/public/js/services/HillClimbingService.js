@@ -10,6 +10,8 @@ angular.module('HillClimbingService', []).factory('HillClimb', ['Queens', functi
     function climbingStep(boardObj, col) {
         var range = _.range(boardObj.queens.length);
         var currentQueenRowIdx = _.find(boardObj.board[col], {queen: true}).row;
+
+        // Enumerate each possible neighboring board within the column
         var neighborBoards = _.chain(range)
             .map(function (neighborIdx) {
                 var neighborBoard = JSON.parse(JSON.stringify(boardObj));
@@ -46,7 +48,7 @@ angular.module('HillClimbingService', []).factory('HillClimb', ['Queens', functi
         curBoard.iterations = 0;
         var activityLog = [];
 
-
+        // Start searching until we get a solution
         for (i = 1; i < MAX_ATTEMPTS && curBoard.h !== 0; i++) {
 
             // Find best move for each column
