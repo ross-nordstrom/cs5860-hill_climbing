@@ -114,8 +114,11 @@ angular.module('ClimbCtrl', [])
                                     result.summaryByH[boardResult.h] = {
                                         count: (curSummary.count || 0) + 1,
                                         meanTime: ( (curSummary.mean || 0) * (curSummary.count || 0) + duration ) / ((curSummary.count || 0) + 1),
-                                        maxTime: Math.max(curSummary.max || -Infinity, duration),
-                                        minTime: Math.min(curSummary.min || Infinity, duration)
+                                        maxTime: Math.max(curSummary.maxTime || -Infinity, duration),
+                                        minTime: Math.min(curSummary.minTime || Infinity, duration),
+                                        meanIterations: ( (curSummary.meanIterations || 0) * (curSummary.count || 0) + boardResult.iterations ) / ((curSummary.count || 0) + 1),
+                                        maxIterations: Math.max(curSummary.maxIterations || -Infinity, boardResult.iterations),
+                                        minIterations: Math.min(curSummary.minIterations || Infinity, boardResult.iterations)
                                     };
 
                                     // Update summary indexed by success vs failure
@@ -125,7 +128,10 @@ angular.module('ClimbCtrl', [])
                                         count: (curSummary.count || 0) + 1,
                                         meanTime: ( (curSummary.meanTime || 0) * (curSummary.count || 0) + duration ) / ((curSummary.count || 0) + 1),
                                         maxTime: Math.max(curSummary.maxTime || -Infinity, duration),
-                                        minTime: Math.min(curSummary.minTime || Infinity, duration)
+                                        minTime: Math.min(curSummary.minTime || Infinity, duration),
+                                        meanIterations: ( (curSummary.meanIterations || 0) * (curSummary.count || 0) + boardResult.iterations ) / ((curSummary.count || 0) + 1),
+                                        maxIterations: Math.max(curSummary.maxIterations || -Infinity, boardResult.iterations),
+                                        minIterations: Math.min(curSummary.minIterations || Infinity, boardResult.iterations)
                                     };
 
                                     return _.extend(result, {configuration: config});
