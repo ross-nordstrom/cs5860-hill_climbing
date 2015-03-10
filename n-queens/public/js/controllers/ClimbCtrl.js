@@ -15,7 +15,7 @@ angular.module('ClimbCtrl', [])
 
             $scope.newConfig = _.clone(DEFAULT_CONFIG);
             $scope.editConfig = false;
-            $scope.showActivityLog = true;
+            $scope.showActivityLog = false;
             $scope.sideMovesAllowed = 0;
             $scope.restartsAllowed = 0;
             $scope.attemptsLimit = 1;
