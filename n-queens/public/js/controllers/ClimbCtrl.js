@@ -171,6 +171,7 @@ angular.module('ClimbCtrl', [])
                 var boardObj = Queens.randomBoard(num);
                 $scope.queensBoard = boardObj;
                 $scope.activityLog = [];
+                $scope.results = [];
 
                 $scope.queensBoard.iterations = 0;
                 // Transpose for viewing

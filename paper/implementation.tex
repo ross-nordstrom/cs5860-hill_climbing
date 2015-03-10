@@ -92,12 +92,17 @@ In the upper right on both tabs, the user can generate a random board with 1 to 
 the user can choose how many random boards to generate in a brute search for a winning solution.
 
 \subsubsection{Board Display}
-The board is shown as a table with icons showing where the queens are. After evaluation on either tab, two sets of
+The board is shown as a table with icons showing where the queens are \ref{fig:ui}. After evaluation on either tab, two sets of
 queens will be shown. White queens show where the queens were initially, and black queens show where they ended up.
 A legend at the bottom of the screen shows the number of pairs of attacking queens for the initial and final queen
 positions.
 
-
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{img/ui.png}
+\caption{The assignment was solved with a focus on user interaction for the purposes of learning}
+\label{fig:ui}
+\end{figure}
 
 \subsubsection{Learning Hill Climbing}
 A neat feature of the UI is the ability to ``Debug board" to see what the prospective H would be after moving a queen to
@@ -106,7 +111,15 @@ or move a queen in a particular column by clicking the orange button under that 
 
 \subsubsection{Evaluation}
 On the Hill Climbing tab, the user can choose to ``Edit Configuration," specifying a list of board configurations to
-evaluate. Each configuration can specify a number of sideways moves allowed, random restarts allowed, and how many
+evaluate \ref{fig:config}. Each configuration can specify a number of sideways moves allowed, random restarts allowed, and how many
 times to try each configuration. Once they've set up a configuration, the user can choose to evaluate the displayed
 board. The results will then be shown under ``View Results." The ``Activity Log" section can be used to help debug and
 understand what the algorithm is doing.
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{img/config.png}
+\caption{The user can manage a list of configurations to evaluate. This is useful for comparing results with different parameters.}
+\label{fig:config}
+\end{figure}

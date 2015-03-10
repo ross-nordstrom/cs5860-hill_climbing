@@ -21,6 +21,7 @@ angular.module('BruteCtrl', [])
             curBoard.iterations = 0;
             var bestBoards = [curBoard];
             $scope.activityLog = [];
+            $scope.results = [];
 
             $scope.loading = true;
 
