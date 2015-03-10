@@ -30,6 +30,12 @@
     position: relative;
 }
 
+.col-step {
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+}
+
 .cell img {
     display: inline-block;
     height: 100%;
