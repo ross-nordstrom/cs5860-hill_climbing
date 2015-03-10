@@ -16,12 +16,25 @@ To run the project, the following must be installed on the machine:
 
 Then use \texttt{npm} and \texttt{bower} to install the dependencies:
 
-\texttt{npm install}
-\texttt{bower install}
+\begin{lstlisting}
+# Install server dependencies
+npm install
+
+# Install client JS dependencies
+bower install
+\end{lstlisting}
 
 \subsubsection{Running}
 The project is setup to run easily, using scripts defined in \texttt{package.json}. Simply run the following:
 
-\texttt{npm start}
+\begin{lstlisting}
+npm start
+\end{lstlisting}
 
 Then browse to the page at \url{http://localhost:8080}
+
+\subsubsection{Javascript Files}
+The core of the project is in the Javascript files under \texttt{n-queens/public/js}. Here, each folder and file is
+described:
+
+
