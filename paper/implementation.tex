@@ -1,6 +1,27 @@
 \section{Implementation}
 \label{section:implementation}
-[implementation here]
+The N-Queens hill climbing solution presented in this paper was implemented in AngularJS, in order to more easily
+develop the solution, and quickly prototype a UI built for exploring the problem. The solution presented here is an
+excellent source for learning Hill Climbing because of certain extensions made to the original assignment, and the
+focus on interaction.
 
-\subsection{Some subsection}
-[subsection here]
+\subsection{Application Structure}
+The application itself is stored as AngularJS code served by a Node.js API. The project is built with modern practices,
+so \texttt{package.json} describes the Node.js dependencies and project configuration and \texttt{bower.json} describes
+the client-side dependencies.
+
+\subsubsection{Setup}
+To run the project, the following must be installed on the machine:
+\texttt{node}\cite{node}, \texttt{npm}\cite{npm}, \texttt{bower}\cite{bower}.
+
+Then use \texttt{npm} and \texttt{bower} to install the dependencies:
+
+\texttt{npm install}
+\texttt{bower install}
+
+\subsubsection{Running}
+The project is setup to run easily, using scripts defined in \texttt{package.json}. Simply run the following:
+
+\texttt{npm start}
+
+Then browse to the page at \url{http://localhost:8080}
