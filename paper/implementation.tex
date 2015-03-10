@@ -82,3 +82,24 @@ The board object itself resides inside a larger object containing metadata about
 
 In hindsight, the 2D N*N array representing the board was redundant with the much simpler 1D N array of queens.
 Simplifying the model in this way could save prescious computation time, improving overall performance.
+
+\subsection{Web Application}
+The web UI has a tab for each of the implemnted use cases: Hill Climbing and Brute Force. This section describes the
+major aspects of the UI.
+
+\subsubsection{Board Generation}
+In the upper right on both tabs, the user can generate a random board with 1 to 16 queens (N). On the Brute Force tab,
+the user can choose how many random boards to generate in a brute search for a winning solution.
+
+\subsubsection{Board Display}
+The board is shown as a table with icons showing where the queens are. After evaluation on either tab, two sets of
+queens will be shown. White queens show where the queens were initially, and black queens show where they ended up.
+A legend at the bottom of the screen shows the number of pairs of attacking queens for the initial and final queen
+positions.
+
+\subsubsection{Learning Hill Climbing}
+A neat feature of the UI is the ability to "Debug board" to see what the prospective H would be after moving a queen to
+another cell in the same column. To build on this, the user can choose to automatically move the best queen with "Step,"
+or move a queen in a particular column by clicking the orange button under that column.
+
+\subsubsection{}
