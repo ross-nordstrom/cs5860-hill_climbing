@@ -40,17 +40,17 @@ is described:
 \begin{description}
   \item[/controllers]   Contains business logic wiring up Hill Climbing backend code to user interaction in the UI
   \begin{description}
-    \item{BruteCtrl.js}             Manages the brute force page
-    \item{ClimbCtrl.js}             Manages the Hill Climbing page
+    \item[BruteCtrl.js]             Manages the brute force page
+    \item[ClimbCtrl.js]             Manages the Hill Climbing page
   \end{description}
   \item[/filters]       Contains AngularJS filters, which help transform data/text in the UI
   \begin{description}
-    \item{TimeFilters.js}           Filters for showing timespans in the UI
+    \item[TimeFilters.js]           Filters for showing timespans in the UI
   \end{description}
   \item[/services]      Contains models and core code implementing the Hill Climbing algorithms
   \begin{description}
-    \item{HillClimbingService.js}   Implements the Hill Climbing algorithm
-    \item{NQUeensService.js}        Abstractions around an N*N board with a Queen in each column
+    \item[HillClimbingService.js]   Implements the Hill Climbing algorithm
+    \item[NQUeensService.js]        Abstractions around an N*N board with a Queen in each column
   \end{description}
   \item[app.js]         Declares the AngularJS application, including dependencies
   \item[appRoutes.js]   Defines the app routes, connecting URLs to a controller and view
@@ -61,23 +61,23 @@ One of the critical parts of the assignment is modelling the N-Queens board. Thi
 with the board stored as a 2D array of objects representing each cell. The cell object stores a number of fields:
 
 \begin{description}
-\item{queen} Whether or not a queen is in the cell now
-\item{initialQueen} Whether or not a queen started out in the cell in the initial board
-\item{opportunity} Number of attacking queens if the queen in that row were moved to this cell
-\item{row} Reverse lookup of where the cell is
-\item{col} Reverse lookup of where the cell is
+\item[queen] Whether or not a queen is in the cell now
+\item[initialQueen] Whether or not a queen started out in the cell in the initial board
+\item[opportunity] Number of attacking queens if the queen in that row were moved to this cell
+\item[row] Reverse lookup of where the cell is
+\item[col] Reverse lookup of where the cell is
 \end{description}
 
 The board object itself resides inside a larger object containing metadata about the board state:
 
 \begin{description}
-\item{board} The board with N^2 cells as described above
-\item{queens} Denormalized store of the queens in the board
-\item{best} The best H achieved while hill climbing with this board
-\item{h} Current number of pairs of attacking queens in the board
-\item{iterations} How many queen moves have been made against this board
-\item{start} Timestamp when hill climbing (or random brute force) was started on this board) began
-\item{end} Timestamp when hill climbing (or random brute force) ended
+\item[board] The board with N*N cells as described above
+\item[queens] Denormalized store of the queens in the board
+\item[best] The best H achieved while hill climbing with this board
+\item[h] Current number of pairs of attacking queens in the board
+\item[iterations] How many queen moves have been made against this board
+\item[start] Timestamp when hill climbing (or random brute force)  began
+\item[end] Timestamp when hill climbing (or random brute force) ended
 \end{description}
 
 In hindsight, the 2D N*N array representing the board was redundant with the much simpler 1D N array of queens.
