@@ -47,7 +47,7 @@ angular.module('ClimbCtrl', [])
             setConfigText();
 
             $scope.toggleConfig = function () {
-                $scope.editConfig = !$scope.editConfig
+                $scope.editConfig = !$scope.editConfig;
             };
 
             $scope.addConfig = function (config) {
