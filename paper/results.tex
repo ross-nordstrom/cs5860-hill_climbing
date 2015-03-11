@@ -31,7 +31,8 @@ success rate, but more moves improves it, over the base of 0 sideways moves allo
 
 
 \subsection{Hill Climbing with Random Restarts}
-Allowing restarts with a random board upon failure appears to have a solid impact on the success rate of the algorithm.
+Allowing restarts with a random board upon failure appears to have a solid impact on the success rate of the algorithm,
+reaching 34% success at 10 random restarts.
 
 \begin{figure}[ht!]
 \centering
@@ -48,7 +49,12 @@ Allowing restarts with a random board upon failure appears to have a solid impac
 \end{figure}
 
 \subsection{Hill Climbing with Sideways Moves and Random Restarts}
+Allowing both sideways moves and random restarts has a dramatic impact on the success rate of hill climbing, but does
+not provide a clear trend \ref{fig:hill_restart}. In the results shown, the best results were found when 5 sideways moves
+were allowd and/or 5 restarts allowed in the hill climbing.
+
 
 
 \subsection{Extension: Brute Force via Random Generation}
-
+Finally -- as part of the debug process -- a few features were added to asist in learning, such as allowing
+variably-sized boards, and stepping through the hill climbing both wholistically or on a spceific column.
