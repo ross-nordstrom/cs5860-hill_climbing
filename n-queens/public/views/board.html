@@ -116,33 +116,33 @@
 
                             <!-- Successful Results -->
                             <th>Count</th>
-                            <th>T<sub>min</sub> | T<sub>mean</sub> | T<sub>max</sub> (ms)</th>
-                            <th>Tries<sub>min</sub> | Tries<sub>mean</sub> | Tries<sub>max</sub> (ms)</th>
+                            <th>Time - min,mean,max (ms)</th>
+                            <th>Tries - min,mean,max</th>
 
                             <!-- Failure Results -->
                             <th>Count</th>
-                            <th>T<sub>min</sub> | T<sub>mean</sub> | T<sub>max</sub> (ms)</th>
-                            <th>Tries<sub>min</sub> | Tries<sub>mean</sub> | Tries<sub>max</sub> (ms)</th>
+                            <th>Time - min,mean,max (ms)</th>
+                            <th>Tries - min,mean,max</th>
 
                             <!-- H=0 -->
                             <th>Count</th>
-                            <th>T<sub>min</sub> | T<sub>mean</sub> | T<sub>max</sub> (ms)</th>
-                            <th>Tries<sub>min</sub> | Tries<sub>mean</sub> | Tries<sub>max</sub> (ms)</th>
+                            <th>Time - min,mean,max (ms)</th>
+                            <th>Tries - min,mean,max</th>
 
                             <!-- H=1 -->
                             <th>Count</th>
-                            <th>T<sub>min</sub> | T<sub>mean</sub> | T<sub>max</sub> (ms)</th>
-                            <th>Tries<sub>min</sub> | Tries<sub>mean</sub> | Tries<sub>max</sub> (ms)</th>
+                            <th>Time - min,mean,max (ms)</th>
+                            <th>Tries - min,mean,max</th>
 
                             <!-- H=2 -->
                             <th>Count</th>
-                            <th>T<sub>min</sub> | T<sub>mean</sub> | T<sub>max</sub> (ms)</th>
-                            <th>Tries<sub>min</sub> | Tries<sub>mean</sub> | Tries<sub>max</sub> (ms)</th>
+                            <th>Time - min,mean,max (ms)</th>
+                            <th>Tries - min,mean,max</th>
 
                             <!-- H=3 -->
                             <th>Count</th>
-                            <th>T<sub>min</sub> | T<sub>mean</sub> | T<sub>max</sub> (ms)</th>
-                            <th>Tries<sub>min</sub> | Tries<sub>mean</sub> | Tries<sub>max</sub> (ms)</th>
+                            <th>Time - min,mean,max (ms)</th>
+                            <th>Tries - min,mean,max</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -170,79 +170,79 @@
                             <!-- Successful Results -->
                             <td>{{result.summaryByResult.success.count || 0}}</td>
                             <td>
-                                {{result.summaryByResult.success.minTime.toFixed(1) || '-'}} |
-                                {{result.summaryByResult.success.meanTime.toFixed(1) || '-'}} |
+                                {{result.summaryByResult.success.minTime.toFixed(1) || '-'}},
+                                {{result.summaryByResult.success.meanTime.toFixed(1) || '-'}},
                                 {{result.summaryByResult.success.maxTime.toFixed(1) || '-'}}
                             </td>
                             <td>
-                                {{result.summaryByResult.success.minIterations.toFixed(1) || '-'}} |
-                                {{result.summaryByResult.success.meanIterations.toFixed(1) || '-'}} |
+                                {{result.summaryByResult.success.minIterations.toFixed(1) || '-'}},
+                                {{result.summaryByResult.success.meanIterations.toFixed(1) || '-'}},
                                 {{result.summaryByResult.success.maxIterations.toFixed(1) || '-'}}
                             </td>
 
                             <!-- Failure Results -->
                             <td>{{result.summaryByResult.failure.count || 0}}</td>
                             <td>
-                                {{result.summaryByResult.failure.minTime.toFixed(1) || '-'}} |
-                                {{result.summaryByResult.failure.meanTime.toFixed(1) || '-'}} |
+                                {{result.summaryByResult.failure.minTime.toFixed(1) || '-'}},
+                                {{result.summaryByResult.failure.meanTime.toFixed(1) || '-'}},
                                 {{result.summaryByResult.failure.maxTime.toFixed(1) || '-'}}
                             </td>
                             <td>
-                                {{result.summaryByResult.failure.minIterations.toFixed(1) || '-'}} |
-                                {{result.summaryByResult.failure.meanIterations.toFixed(1) || '-'}} |
+                                {{result.summaryByResult.failure.minIterations.toFixed(1) || '-'}},
+                                {{result.summaryByResult.failure.meanIterations.toFixed(1) || '-'}},
                                 {{result.summaryByResult.failure.maxIterations.toFixed(1) || '-'}}
                             </td>
 
                             <!-- H=0 -->
                             <td>{{result.summaryByH[0].count || 0}}</td>
                             <td>
-                                {{result.summaryByH[0].minTime.toFixed(1) || '-'}} |
-                                {{result.summaryByH[0].meanTime.toFixed(1) || '-'}} |
+                                {{result.summaryByH[0].minTime.toFixed(1) || '-'}},
+                                {{result.summaryByH[0].meanTime.toFixed(1) || '-'}},
                                 {{result.summaryByH[0].maxTime.toFixed(1) || '-'}}
                             </td>
                             <td>
-                                {{result.summaryByH[0].minIterations.toFixed(1) || '-'}} |
-                                {{result.summaryByH[0].meanIterations.toFixed(1) || '-'}} |
+                                {{result.summaryByH[0].minIterations.toFixed(1) || '-'}},
+                                {{result.summaryByH[0].meanIterations.toFixed(1) || '-'}},
                                 {{result.summaryByH[0].maxIterations.toFixed(1) || '-'}}
                             </td>
 
                             <!-- H=1 -->
                             <td>{{result.summaryByH[1].count || 0}}</td>
                             <td>
-                                {{result.summaryByH[1].minTime.toFixed(1) || '-'}} |
-                                {{result.summaryByH[1].meanTime.toFixed(1) || '-'}} |
+                                {{result.summaryByH[1].minTime.toFixed(1) || '-'}},
+                                {{result.summaryByH[1].meanTime.toFixed(1) || '-'}},
                                 {{result.summaryByH[1].maxTime.toFixed(1) || '-'}}
                             </td>
                             <td>
-                                {{result.summaryByH[1].minIterations.toFixed(1) || '-'}} |
-                                {{result.summaryByH[1].meanIterations.toFixed(1) || '-'}} |
+                                {{result.summaryByH[1].minIterations.toFixed(1) || '-'}},
+                                {{result.summaryByH[1].meanIterations.toFixed(1) || '-'}},
                                 {{result.summaryByH[1].maxIterations.toFixed(1) || '-'}}
                             </td>
 
                             <!-- H=2 -->
                             <td>{{result.summaryByH[2].count || 0}}</td>
                             <td>
-                                {{result.summaryByH[2].minTime.toFixed(1) || '-'}} |
-                                {{result.summaryByH[2].meanTime.toFixed(1) || '-'}} |
+                                {{result.summaryByH[2].minTime.toFixed(1) || '-'}},
+                                {{result.summaryByH[2].meanTime.toFixed(1) || '-'}},
                                 {{result.summaryByH[2].maxTime.toFixed(1) || '-'}}
                             </td>
                             <td>
-                                {{result.summaryByH[2].minIterations.toFixed(1) || '-'}} |
-                                {{result.summaryByH[2].meanIterations.toFixed(1) || '-'}} |
+                                {{result.summaryByH[2].minIterations.toFixed(1) || '-'}},
+                                {{result.summaryByH[2].meanIterations.toFixed(1) || '-'}},
                                 {{result.summaryByH[2].maxIterations.toFixed(1) || '-'}}
                             </td>
 
                             <!-- H=3 -->
                             <td>{{result.summaryByH[3].count || 0}}</td>
                             <td>
-                                {{result.summaryByH[3].minTime.toFixed(1) || '-'}} |
-                                {{result.summaryByH[3].meanTime.toFixed(1) || '-'}} |
+                                {{result.summaryByH[3].minTime.toFixed(1) || '-'}},
+                                {{result.summaryByH[3].meanTime.toFixed(1) || '-'}},
                                 {{result.summaryByH[3].maxTime.toFixed(1) || '-'}}
                             </td>
 
                             <td>
-                                {{result.summaryByH[3].minIterations.toFixed(1) || '-'}} |
-                                {{result.summaryByH[3].meanIterations.toFixed(1) || '-'}} |
+                                {{result.summaryByH[3].minIterations.toFixed(1) || '-'}},
+                                {{result.summaryByH[3].meanIterations.toFixed(1) || '-'}},
                                 {{result.summaryByH[3].maxIterations.toFixed(1) || '-'}}
                             </td>
 
