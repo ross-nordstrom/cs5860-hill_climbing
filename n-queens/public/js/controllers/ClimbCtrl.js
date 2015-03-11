@@ -98,7 +98,7 @@ angular.module('ClimbCtrl', [])
                             ].join(' '));
 
                             var result = _.reduce(_.range(config.repeat), function (result, i) {
-                                    var boardResult = HillClimb.climb(boardObj, config.sideMovesAllowed, config.restartsAllowed);
+                                    var boardResult = HillClimb.climb(Queens.randomBoard(boardObj.queens.length), config.sideMovesAllowed, config.restartsAllowed);
                                     activityLog.concat(boardResult.activityLog);
 
                                     // Record best for optional display
