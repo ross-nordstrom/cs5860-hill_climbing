@@ -13,7 +13,7 @@ succeeding in a mean of 5 steps (min: 3, max: 8), taking a mean of 36.3ms (min: 
 
 \subsection{Hill Climbing with K Sideways Moves}
 Introducing sideways moves seems to have a delayed improvement on the success rate, where 2-3 sideways moves hurts the
-success rate, but more moves improves it, over the base of 0 sideways moves allowed \ref{sideways}
+success rate, but more moves improves it, over the base of 0 sideways moves allowed \ref{sideways} \ref{sideways2}.
 
 \begin{figure}[ht!]
 \centering
@@ -22,9 +22,30 @@ success rate, but more moves improves it, over the base of 0 sideways moves allo
 \label{fig:ui}
 \end{figure}
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{img/sideways2.png}
+\caption{More detail on the sideways moves results}
+\label{fig:ui}
+\end{figure}
+
 
 \subsection{Hill Climbing with Random Restarts}
+Allowing restarts with a random board upon failure appears to have a solid impact on the success rate of the algorithm.
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{img/restart.png}
+\caption{Results showing win rates with random restarts in the range k=[0:10]. Improvements are realized immediately}
+\label{fig:ui}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{img/restart2.png}
+\caption{More detail on the random restart results}
+\label{fig:ui}
+\end{figure}
 
 \subsection{Hill Climbing with Sideways Moves and Random Restarts}
 
